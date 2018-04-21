@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    \App\Company::create([
+        'name' => 'Codecourse',
+        'uuid' => 'b1f4d4b6-3725-11e8-b467-0ed5f89f718b'
+    ]);
+    //return view('welcome');
 });
 
 Auth::routes();
