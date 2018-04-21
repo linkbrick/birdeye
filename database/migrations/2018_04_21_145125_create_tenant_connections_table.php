@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompanyUserTable extends Migration
+class CreateTenantConnectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateCompanyUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('company_user', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned()->index();
+        Schema::create('tenant_connections', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('company_id')->unsigned()->index();
+            $table->string('database');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('company_id')->references('id')->on('companies');
         });
     }
@@ -30,6 +30,6 @@ class CreateCompanyUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('company_user');
+        Schema::dropIfExists('tenant_connections');
     }
 }
