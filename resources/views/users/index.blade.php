@@ -1,0 +1,54 @@
+@extends('layouts.material')
+
+@section('content')
+    <div class="container-fluid" id="corporate-index">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon card-header-primary" >
+
+                        <div class="card-icon">
+                            Users
+                        </div>
+                    </div>
+                    <div class="row" style="display: inline">
+                        <a href="{{route('users.create')}}" class="btn btn-link btn-primary pull-right">New User</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="material-datatables">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover"
+                                   cellspacing="0" width="100%" style="width:100%; word-break: break-all">
+                                <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th class="disabled-sorting" width="15%">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($users as $ukey => $user)
+                                    <tr>
+                                        <td>{{ ++$ukey }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td class="td-actions">
+                                            <div class="row" style="width: 110px;margin:0px;">
+                                                <a href="{{route('users.edit',["id" => $user->id])}}"
+                                                   class="col-md-3 btn btn-info"><i
+                                                            class="material-icons">edit</i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+@endsection
+
