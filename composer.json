@@ -12,7 +12,8 @@
         "laravel/tinker": "^1.0",
         "owen-it/laravel-auditing": "^6.0",
         "silber/bouncer": "v1.0.0-rc.1",
-        "spatie/laravel-medialibrary": "^7.0.0"
+        "spatie/laravel-medialibrary": "^7.0.0",
+        "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
