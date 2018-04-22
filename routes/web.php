@@ -12,11 +12,7 @@
 */
 
 Route::get('/', function () {
-    \App\Company::create([
-        'name' => 'Codecourse',
-        'uuid' => 'b1f4d4b6-3725-11e8-b467-0ed5f89f718b'
-    ]);
-    //return view('welcome');
+    return view('welcome');
 });
 
 Auth::routes();
@@ -30,6 +26,11 @@ Route::group(['middleware' => 'auth'], function () {
     // upload
     Route::resource('upload', 'Upload\UploadController');
 
+    // companies
+    Route::resource('companies', 'CompanyController');
+
+    // tenant switch
+    Route::get('tenant/{company}','TenantController@switchTenant')->name('tenant.switch');
     // profile
     Route::resource('maintenance/profiles', 'Maintenance\ProfileController');
 

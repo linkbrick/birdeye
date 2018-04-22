@@ -15,6 +15,31 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
+        @auth
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        Companies <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @if($companies->count())
+                            @foreach($companies as $company)
+                                <a href="{{ route('tenant.switch', $company) }}" class="dropdown-item">
+                                    {{ $company->name }}
+                                </a>
+                            @endforeach
+                            <div class="dropdown-divider"></div>
+                        @endif
+                        <a class="dropdown-item" href="{{ route('companies.create') }}">New company</a>
+                    </div>
+                </li>
+                @tenant
+                <li>
+                    <a class="nav-link" href="#">Projects</a>
+                </li>
+                @endtenant
+            </ul>
+        @endauth
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
