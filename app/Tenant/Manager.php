@@ -18,4 +18,9 @@ class Manager
         return $this->tenant;
     }
 
+    public function hasTenant()
+    {
+        return isset($this->tenant);
+    }
+
 }

@@ -33,6 +33,7 @@
                         <a class="dropdown-item" href="{{ route('companies.create') }}">New company</a>
                     </div>
                 </li>
+
                 @tenant
                 <li>
                     <a class="nav-link" href="#">Projects</a>

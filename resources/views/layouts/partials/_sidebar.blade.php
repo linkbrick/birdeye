@@ -4,9 +4,9 @@ Tip 1: You can change the color of active element of the sidebar using: data-act
 Tip 2: you can also add an image using data-image tag
 Tip 3: you can change the color of the sidebar with data-background-color="white | black"
 -->
-    <div class="logo text-center">
+    <div class="logo text-left pl-3">
         <a href="{{ route('home') }}" class="simple-text logo-normal">
-            <img class="image" style="max-width: 180px;" src="{{ asset('images/PBB.jpg') }}"/>
+            {{ optional(request()->tenant())->name ?:config('app.name') }}
         </a>
 
     </div>
