@@ -160,6 +160,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
+        App\Providers\TenantServiceProvider::class,
 
         Barryvdh\Debugbar\ServiceProvider::class,
         

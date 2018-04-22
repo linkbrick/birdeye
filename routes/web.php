@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     // profile
     Route::resource('maintenance/profiles', 'Maintenance\ProfileController');
 
-    Route::get('/home', 'HomeController@index')->name('home');
+
 
     // Page Controller
     // Route::get('/home','HomeController@index')->name('home');

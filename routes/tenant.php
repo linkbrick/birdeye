@@ -1,5 +1,7 @@
 <?php
 
 Route::get('/test',function(){
-    return 'test';
+    dd(app(\App\Tenant\Manager::class)->getTenant());
 });
+
+Route::get('/home', 'HomeController@index')->name('home');
