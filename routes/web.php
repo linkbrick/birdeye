@@ -13,10 +13,10 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Auth::routes();
-    
+
 Route::group(['middleware' => 'auth'], function () {
     // users
     Route::resource('people/users', 'People\UserController');
@@ -29,8 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
     //Route::get('/home', 'HomeController@index')->name('home');
 
     // Page Controller
-    Route::get('/home','PageController@successionPlanning')->name('home');
+    Route::get('/home','HomeController@index')->name('home');
     Route::get('/career_conversation','PageController@careerConversation')->name('career_conversation');
     // Route::get('/assessment','PageController@assessment')->name('assessment');
-   
+
 });

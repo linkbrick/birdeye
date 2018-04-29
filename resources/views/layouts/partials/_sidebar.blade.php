@@ -20,7 +20,11 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                             <span>
 
-                                {{ auth()->user()->name }}
+                                @if(auth()->user())
+                                    {{ auth()->user()->name }}
+                                @else
+                                    Sign in
+                                @endif
                                 <b class="caret"></b>
                             </span>
                 </a>
@@ -28,7 +32,7 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 <div class="collapse" id="collapseExample">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profiles.index') }}">
+                            <a class="nav-link" href="">
                                 <span class="sidebar-mini"> MP </span>
                                 <span class="sidebar-normal"> My Profile </span>
                             </a>
@@ -44,12 +48,7 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                     <p> Dashboard </p>
                 </a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ route('maintenance.index') }}">
-                    <i class="material-icons">tune</i>
-                    <p> Maintenance </p>
-                </a>
-            </li>
+
             <li class="nav-item ">
                 <a data-toggle="collapse" href="#tasklist" aria-expanded="false" class="nav-link">
                     <i class="material-icons">assignment</i>
@@ -60,13 +59,13 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 <div class="collapse" id="tasklist">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}" data-bind="{{ route('task_list.sp_group_list') }}">
+                            <a class="nav-link" href="{{ route('home') }}" data-bind="">
                                 <span class="sidebar-mini"> <i class="material-icons">folder_shared</i> </span>
                                 <span class="sidebar-normal"> SP List (Nomination) </span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('career_conversation') }}">
+                            <a class="nav-link" href="">
                                 <span class="sidebar-mini"> <i class="material-icons">forum</i></span>
                                 <span class="sidebar-normal"> Career Conversation </span>
                             </a>
@@ -96,19 +95,19 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 <div class="collapse" id="users">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('users.index') }}">
+                            <a class="nav-link" href="">
                                 <span class="sidebar-mini"> U </span>
                                 <span class="sidebar-normal"> Users </span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('roles.index') }}">
+                            <a class="nav-link" href="">
                                 <span class="sidebar-mini"> R </span>
                                 <span class="sidebar-normal"> Roles </span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('abilities.index') }}">
+                            <a class="nav-link" href="">
                                 <span class="sidebar-mini"> A </span>
                                 <span class="sidebar-normal"> Abilities </span>
                             </a>
