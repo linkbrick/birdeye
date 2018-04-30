@@ -19,7 +19,7 @@
             <script>
                 document.write(new Date().getFullYear())
             </script>
-            <a href="http://accendo.com.my"> Accendo Sdn Bhd </a>, made with love for a better web
+            <a href="http://birdeye.com.my"> BirdEye Sdn Bhd </a>, made with love for better insights
         </p>
     </div>
 </footer>

@@ -50,6 +50,13 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
             </li>
 
             <li class="nav-item ">
+                <a class="nav-link" href="{{ url('upload') }}">
+                    <i class="material-icons">backup</i>
+                    <p> Upload </p>
+                </a>
+            </li>
+
+            <li class="nav-item ">
                 <a data-toggle="collapse" href="#tasklist" aria-expanded="false" class="nav-link">
                     <i class="material-icons">assignment</i>
                     <p> Task List

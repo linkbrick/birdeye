@@ -23,6 +23,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('people/roles', 'People\RoleController');
     Route::resource('people/abilities', 'People\AbilityController');
 
+    // upload
+    Route::resource('upload', 'Upload\UploadController');
+
     // profile
     Route::resource('maintenance/profiles', 'Maintenance\ProfileController');
 
