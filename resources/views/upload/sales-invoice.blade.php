@@ -12,7 +12,7 @@
                     </div>
 
                     <div class="card-body ">
-                        <form method="post" action="{{ url('upload') }}" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="post" action="{{ url('upload-file') }}" class="form-horizontal" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row">

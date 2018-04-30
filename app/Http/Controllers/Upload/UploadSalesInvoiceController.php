@@ -4,17 +4,24 @@ namespace App\Http\Controllers\Upload;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Excel;
 
-class UploadController extends Controller
+use App\Classes\Upload;
+use App\Classes\ExcelTemplateExport;
+
+use App\SaleInvoice;
+
+class UploadSalesInvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        return view("upload.upload");
+        return view("upload.sales-invoice");
     }
 
     /**
@@ -35,7 +42,8 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
+        $sales_invoice = Upload::save($request->file("file_salesInvoice"), "sales-invoice");
+        dd($sales_invoice);
     }
 
     /**
@@ -81,5 +89,10 @@ class UploadController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function template()
+    {
+        return Excel::download(new ExcelTemplateExport(new SaleInvoice), 'sales-invoice-template.xls');
     }
 }
