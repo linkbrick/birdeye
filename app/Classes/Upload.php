@@ -1,8 +1,8 @@
 <?php
 namespace App\Classes;
 
-class Upload implements FromCollection{
-    private $extension_allowed = [
+class Upload{
+    private static $extension_allowed = [
         'excel' => ["xls", "xlsx", "csv"],
     ];
 
@@ -20,13 +20,13 @@ class Upload implements FromCollection{
             mkdir($directory, 0777, true);
         }
 
-        if(!in_array($file_ext, $this->$extension_allowed[$filetype])){
+        if(!in_array($file_ext, self::$extension_allowed[$filetype])){
             abort(415);
         }
 
         $file->move($directory, $system_file_name);
 
-        return ["file"=>$directory."/".$system_file_name];
+        return $directory."/".$system_file_name;
     }
 }
 ?>

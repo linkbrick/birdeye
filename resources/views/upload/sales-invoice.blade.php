@@ -12,8 +12,15 @@
                     </div>
 
                     <div class="card-body ">
-                        <form method="post" action="{{ url('upload-file') }}" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data">
                             @csrf
+
+                            <div class="row">
+                                <label class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10">
+                                    <a href="{{ url('template-sales-invoice') }}" target="_blank">Download template here</a>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <label class="col-sm-2 col-form-label">Sales Invoice Excel</label>
