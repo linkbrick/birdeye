@@ -8,6 +8,8 @@ class ExcelValidateData
         $result["error"] = false;
 
         foreach($cols as $key=>$col){
+            if($col == "") continue;
+            
             $is_valid = self::_check(\Schema::getColumnType($table_name, $col), $data->$key);
 
             if(!$is_valid){

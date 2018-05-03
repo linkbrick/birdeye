@@ -24,8 +24,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('people/abilities', 'People\AbilityController');
 
     // upload
-    Route::resource('upload-sales-invoice', 'Upload\UploadSalesInvoiceController');
-    Route::get('template-sales-invoice', 'Upload\UploadSalesInvoiceController@template');
+    Route::resource('evaluation', 'EvaluationController');
+    Route::get('template/{p}', 'EvaluationController@template');
+    // Download
+    Route::get('evaluation/download/{s}', 'EvaluationController@download');
 
     // profile
     //Route::resource('maintenance/profiles', 'Maintenance\ProfileController');

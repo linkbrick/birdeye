@@ -56,6 +56,8 @@ class ExcelExport
         $cols = config("tablecolumns.".self::$table_name);
 
         foreach($cols as $key=>$col){
+            if($col == "") continue;
+            
             $_f = self::_format_string(\Schema::getColumnType(self::$table_name, $col));
 
             if($_f != ""){

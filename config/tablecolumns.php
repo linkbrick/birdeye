@@ -10,5 +10,13 @@ return [
         "tax" => "tax",
         "total" => "total"
     ],
+
+    'payments' => [
+        //column name in excel => column name in db
+        "payment_number" => "payment_number",
+        "payment_date" => "payment_date",
+        "payment_amount" => "payment_amount",
+        "invoice_number" => ""
+    ],
 ];
 ?>

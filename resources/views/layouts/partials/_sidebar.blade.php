@@ -50,9 +50,9 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="{{ url('upload-sales-invoice') }}">
-                    <i class="material-icons">backup</i>
-                    <p> Upload Sales Invoice </p>
+                <a class="nav-link" href="{{ url('evaluation') }}">
+                    <i class="material-icons">assessment</i>
+                    <p> Evaluation </p>
                 </a>
             </li>
 

@@ -13,4 +13,9 @@ class Payment extends Model
     {
         return $this->belongsToMany(SaleInvoice::class);
     }
+
+    public function upload()
+    {
+        return $this->belongsTo(Upload::class);
+    }
 }
