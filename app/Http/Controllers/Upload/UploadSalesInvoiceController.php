@@ -9,6 +9,7 @@ use Auth;
 
 use App\Classes\Upload;
 use App\Classes\ExcelExport;
+use App\Classes\ExcelValidateData;
 
 use App\SaleInvoice;
 
@@ -19,6 +20,8 @@ class UploadSalesInvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $model = "sale_invoices";
 
     public function index()
     {
@@ -43,48 +46,65 @@ class UploadSalesInvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $row_count = 0;
-        $err_count = 0;
+        $errors = [];
         $inserts = [];
-        $model = "sale_invoices";
-        $columns = config("tablecolumns.$model");
+        $row_index = 1;
+        $columns = config("tablecolumns.$this->model");
 
         // save uploaded file to drive
-        $sales_invoice = Upload::save($request->file("file_salesInvoice"), $model);
+        $sales_invoice = Upload::save($request->file("file_salesInvoice"), $this->model);
 
         //read uploaded Excel
         $excel = Excel::load($sales_invoice)->get();
+
         $_data["account_code"] = Auth::id();
         $_data["created_at"] = date("Y-m-d H:i:s");
         $_data["updated_at"] = $_data["created_at"];
-
         foreach($excel as $row){
             $data = [];
+            $row_index++;
 
-            // check data format
-            // $err_count++ when error found
+            // check data format for error
+            $check = ExcelValidateData::run($row, $this->model);
+            if($check->error){
+                // do something here
+                $cols = implode(", ", $check->columns);
+                $errors["message"][] =  "<b>Row $row_index:</b> Invalid data format for ".ExcelExport::rename_column($cols);
 
-            // save to $inserts if no error
+                continue;
+            }
+
+            // no error then proceed
             foreach($row as $col=>$val){
                 if(isset($columns[$col])){
                     $data[$columns[$col]] = $val;
                 }
             }
 
+            // save data to $inserts
             $inserts[] = array_merge($_data, $data);
-            $row_count++;
         }
 
-        if($err_count > 0){
-            // dump errors rows if any
+        // dump errors rows if any
+        if(count($errors) > 0){
+            return redirect('upload-sales-invoice')->withErrors($errors);
         }
-
-        if($row_count){
-            // save to db
+        // save to db
+        elseif(count($inserts) > 0){
             SaleInvoice::insert($inserts);
+            return redirect('upload-sales-invoice')->with(
+                [
+                    "_messages" => [
+                        "type" => "success",
+                        "messages" => ($row_index-1)." rows were imported."
+                    ]
+                ]
+            );
         }
-
-        return redirect('upload-sales-invoice');
+        // when nothing happen
+        else{
+            return redirect('upload-sales-invoice')->withErrors(["message"=>"Nothing was imported!"]);
+        }
     }
 
     /**
@@ -134,6 +154,6 @@ class UploadSalesInvoiceController extends Controller
 
     public function template()
     {
-        ExcelExport::template(new SaleInvoice, true);
+        ExcelExport::template($this->model);
     }
 }

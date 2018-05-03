@@ -7,12 +7,12 @@ class ExcelExport
 {
     private static $table_name, $data;
 
-    public static function template($model){
-        self::$table_name = $model->getTable();
+    public static function template($table_name){
+        self::$table_name = $table_name;
 
         // get table columns
         $data = array_map(
-                    "self::_rename",
+                    "self::rename_column",
                     array_keys(config("tablecolumns.".self::$table_name))
                 );
 
@@ -30,7 +30,7 @@ class ExcelExport
         $format = self::_column_format();
 
         // export template
-        Excel::create(self::_rename(self::$table_name), function($excel) use ($data, $format){
+        Excel::create(self::rename_column(self::$table_name), function($excel) use ($data, $format){
             $excel->sheet("Sheet1", function($sheet) use ($data, $format){
                 // dump rows from array
                 $sheet->fromArray($data);
@@ -85,8 +85,8 @@ class ExcelExport
         return $letter;
     }
 
-    private static function _format_string($type){
-        switch($type){
+    private static function _format_string($datatype){
+        switch($datatype){
             case "string":
                 return "";
             break;
@@ -104,7 +104,7 @@ class ExcelExport
         }
     }
 
-    private static function _rename($v){
+    public static function rename_column($v){
         return ucwords(str_replace("_", " ", $v));
     }
 }

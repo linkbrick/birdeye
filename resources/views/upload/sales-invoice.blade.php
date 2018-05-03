@@ -12,6 +12,8 @@
                     </div>
 
                     <div class="card-body ">
+                        @include('layouts.messages')
+
                         <form method="post" class="form-horizontal" enctype="multipart/form-data">
                             @csrf
 
