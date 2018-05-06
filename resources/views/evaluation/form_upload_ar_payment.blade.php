@@ -22,10 +22,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group has-default">
-                        <a href="{{ url('evaluation/download/'.$arpayment->id) }}" target="_blank">
-                            <b>{{ $arpayment->file_name }}</b>
-                        </a>
-                        <small class="text-muted font-italic">was uploaded on {{ date("d F Y, g:ia", strtotime($arpayment->created_at)) }}</small>
+                        <b>{{ $arpayment->file_name }}</b>
+                        &nbsp;&nbsp;
+                        <a href="javascript:;" class="view_excel" data-target="{{ $arpayment->id }}" data-title="AR Payment">view</a>
+                        &nbsp;&middot;&nbsp;
+                        <a href="{{ url('evaluation/download/'.$arpayment->id) }}" target="_blank">download</a>
+                        <div><small class="text-muted font-italic">uploaded on {{ date("d F Y, g:ia", strtotime($arpayment->created_at)) }}</small></div>
                     </div>
                 </div>
             </div>
@@ -34,7 +36,7 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="{{ url('template/ar_payments') }}" target="_blank">Download AR Payment template here</a>
+                    <a href="{{ url('evaluation/template/ar_payments') }}" target="_blank">Download AR Payment template here</a>
                 </div>
             </div>
 
@@ -50,7 +52,7 @@
                 <div class="col-sm-12">
                     <input type="submit" value="
                     @if(!$arpayment)
-                        {{ 'Upload AR Payment' }} 
+                        {{ 'Upload AR Payment' }}
                     @else
                         {{ 'Replace AR Payment' }}
                     @endif

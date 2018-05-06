@@ -2,6 +2,7 @@
 namespace App\Classes;
 
 use App\Upload as uploadModel;
+// use Illuminate\Support\Facades\Storage;
 
 class Upload{
     private static $extension_allowed = [
@@ -28,7 +29,13 @@ class Upload{
             abort(415);
         }
 
-        $file->move($directory, $system_file_name);
+        self::_save_to_disk($file, $directory, $system_file_name);
+
+        // clear previous uploaded record
+        self::delete([
+                        "evaluation_id" => $param["evaluation_id"],
+                        "category" => $param["model"]
+                    ]);
 
         $upload = new uploadModel;
         $upload->account_code = $param["account_code"];
@@ -42,6 +49,39 @@ class Upload{
         $upload->save();
 
         return ["id"=>$upload->id, "location"=>$directory."/".$system_file_name];
+    }
+
+    static function delete($param){
+        if(is_array($param))
+        {
+            $toDelete = [];
+            $up = new uploadModel;
+            foreach($param as $key=>$val){
+                $up = $up->where($key, $val);
+            }
+
+            $files = $up->get();
+
+            foreach($files as $file){
+                $toDelete[] = "$file->location/$file->system_name";
+            }
+
+            $up->delete();
+        }
+        else
+        {
+            $toDelete = "";
+            $file = uploadModel::find($param);
+            $toDelete = "$file->location/$file->system_name";
+            $file->delete();
+        }
+
+        // delete actual file on disk
+        \File::delete($toDelete);
+    }
+
+    private static function _save_to_disk($file, $directory, $filename){
+        $file->move($directory, $filename);
     }
 }
 ?>

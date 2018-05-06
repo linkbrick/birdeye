@@ -22,10 +22,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group has-default">
-                        <a href="{{ url('evaluation/download/'.$appayment->id) }}" target="_blank">
-                            <b>{{ $appayment->file_name }}</b>
-                        </a>
-                        <small class="text-muted font-italic">was uploaded on {{ date("d F Y, g:ia", strtotime($appayment->created_at)) }}</small>
+                        <b>{{ $appayment->file_name }}</b>
+                        &nbsp;&nbsp;
+                        <a href="javascript:;" class="view_excel" data-target="{{ $appayment->id }}" data-title="AP Payment">view</a>
+                        &nbsp;&middot;&nbsp;
+                        <a href="{{ url('evaluation/download/'.$appayment->id) }}" target="_blank">download</a>
+                        <div><small class="text-muted font-italic">uploaded on {{ date("d F Y, g:ia", strtotime($appayment->created_at)) }}</small></div>
                     </div>
                 </div>
             </div>
@@ -34,7 +36,7 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="{{ url('template/ap_payments') }}" target="_blank">Download AP Payment template here</a>
+                    <a href="{{ url('evaluation/template/ap_payments') }}" target="_blank">Download AP Payment template here</a>
                 </div>
             </div>
 

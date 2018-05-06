@@ -22,10 +22,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group has-default">
-                        <a href="{{ url('evaluation/download/'.$purchases->id) }}" target="_blank">
-                            <b>{{ $purchases->file_name }}</b>
-                        </a>
-                        <small class="text-muted font-italic">was uploaded on {{ date("d F Y, g:ia", strtotime($purchases->created_at)) }}</small>
+                        <b>{{ $purchases->file_name }}</b>
+                        &nbsp;&nbsp;
+                        <a href="javascript:;" class="view_excel" data-target="{{ $purchases->id }}" data-title="Purchase Order">view</a>
+                        &nbsp;&middot;&nbsp;
+                        <a href="{{ url('evaluation/download/'.$purchases->id) }}" target="_blank">download</a>
+                        <div><small class="text-muted font-italic">uploaded on {{ date("d F Y, g:ia", strtotime($purchases->created_at)) }}</small></div>
                     </div>
                 </div>
             </div>
@@ -34,7 +36,7 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="{{ url('template/purchases') }}" target="_blank">Download Purchase Order template here</a>
+                    <a href="{{ url('evaluation/template/purchases') }}" target="_blank">Download Purchase Order template here</a>
                 </div>
             </div>
 
@@ -50,7 +52,7 @@
                 <div class="col-sm-12">
                     <input type="submit" value="
                     @if(!$purchases)
-                        {{ 'Upload Purchase Order' }} 
+                        {{ 'Upload Purchase Order' }}
                     @else
                         {{ 'Replace Purchase Order' }}
                     @endif

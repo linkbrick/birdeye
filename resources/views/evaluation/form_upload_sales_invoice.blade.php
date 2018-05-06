@@ -22,10 +22,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group has-default">
-                        <a href="{{ url('evaluation/download/'.$invoice->id) }}" target="_blank">
-                            <b>{{ $invoice->file_name }}</b>
-                        </a>
-                        <small class="text-muted font-italic">was uploaded on {{ date("d F Y, g:ia", strtotime($invoice->created_at)) }}</small>
+                        <b>{{ $invoice->file_name }}</b>
+                        &nbsp;&nbsp;
+                        <a href="javascript:;" class="view_excel" data-target="{{ $invoice->id }}" data-title="Sales Invoice">view</a>
+                        &nbsp;&middot;&nbsp;
+                        <a href="{{ url('evaluation/download/'.$invoice->id) }}" target="_blank">download</a>
+                        <div><small class="text-muted font-italic">uploaded on {{ date("d F Y, g:ia", strtotime($invoice->created_at)) }}</small></div>
                     </div>
                 </div>
             </div>
@@ -34,7 +36,7 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="{{ url('template/sales-invoice') }}" target="_blank">Download Sales Invoice template here</a>
+                    <a href="{{ url('evaluation/template/sales-invoice') }}" target="_blank">Download Sales Invoice template here</a>
                 </div>
             </div>
 
@@ -52,7 +54,7 @@
                     @if(!$invoice)
                         {{ 'Upload Sales Invoice' }}
                     @else
-                        {{ 'Replace Sales Invoice' }} 
+                        {{ 'Replace Sales Invoice' }}
                     @endif
                     " class="btn btn-rose">
                 </div>

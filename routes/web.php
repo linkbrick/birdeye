@@ -25,7 +25,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // upload
     Route::resource('evaluation', 'EvaluationController');
-    Route::get('template/{p}', 'EvaluationController@template');
+    Route::get('evaluation/template/{p}', 'EvaluationController@template');
+    Route::get('evaluation/excel/{p}', 'EvaluationController@view_excel');
     // Download
     Route::get('evaluation/download/{s}', 'EvaluationController@download');
 

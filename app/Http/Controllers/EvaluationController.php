@@ -191,7 +191,7 @@ class EvaluationController extends Controller
 
         // dump errors rows if any
         if(count($errors) > 0){
-            uploadModel::find($upload["id"])->delete();
+            Upload::delete($upload["id"]);
             return redirect("evaluation/$id/edit")->withErrors($errors);
         }
         // save to db
@@ -214,7 +214,7 @@ class EvaluationController extends Controller
         }
         // when nothing happen
         else{
-            uploadModel::find($upload["id"])->delete();
+            Upload::delete($upload["id"]);
             return redirect("evaluation/$id/edit")->withErrors(["message"=>"Nothing was imported!"]);
         }
     }
@@ -239,6 +239,25 @@ class EvaluationController extends Controller
     public function download($needle){
         $file = uploadModel::where("account_code", Auth::id())->where("id", $needle)->firstOrFail();
         return response()->download($file->location."/".$file->system_name, $file->file_name);
+    }
+
+    public function view_excel($needle){
+        $file = uploadModel::where("account_code", Auth::id())->where("id", $needle)->firstOrFail();
+        $table = $file->category;
+        $select = array_flip(
+            config("tablecolumns.$table")
+        );
+        if(isset($select[""])) unset($select[""]);
+
+        $rows = \DB::
+                table($table)
+                ->select($select)
+                ->where("upload_id", $needle)
+                ->get()->toArray();
+        $data["columns"] = array_keys(array_flip($select));
+        $data["rows"] = $rows;
+
+        return response()->json($data);
     }
 
     private function sales_invoice($inserts){
