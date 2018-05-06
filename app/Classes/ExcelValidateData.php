@@ -6,12 +6,24 @@ class ExcelValidateData
     public static function run($data, $table_name){
         $cols = config("tablecolumns.".$table_name);
         $result["error"] = false;
+        $result["columns"] = [];
+        $result["not_found"] = [];
 
         foreach($cols as $key=>$col){
             if($col == "") continue;
-            
-            $is_valid = self::_check(\Schema::getColumnType($table_name, $col), $data->$key);
+            // if expected column does not exist
+            if(!isset($data->$key)){
+                $result["error"] = true;
+                $result["not_found"][] = $key;
+                continue;
+            }
 
+            $is_valid = self::_check(
+                \Schema::getColumnType($table_name, $col),
+                $data->$key
+            );
+
+            // if data format input is invalid
             if(!$is_valid){
                 $result["error"] = true;
                 $result["columns"][] = $key;

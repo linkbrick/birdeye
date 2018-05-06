@@ -143,23 +143,26 @@ class EvaluationController extends Controller
         $inserts = [];
         $row_index = 1;
 
-        //must be the same name as global var, file_, and function name
+        // must be the same name as global var, xxx_file, and function name
         $category = $request->get("_category");
 
+        // ensure the upload file is not empty
         $data = $this->validate($request, [
             $category."_file" => 'required'
         ]);
 
+        // get the column names
         $columns = config("tablecolumns.".$this->$category);
 
-        // save uploaded file to drive
+        // save file to local drive
         $param = ["account_code"=>Auth::id(), "evaluation_id"=>$id, "model"=>$this->$category];
         $upload = Upload::save($request->file($category."_file"), $param);
         $file = $upload["location"];
 
-        //read uploaded Excel
+        // read uploaded Excel
         $excel = Excel::load($file)->get();
 
+        // start insert into db
         $_data["account_code"] = Auth::id();
         $_data["created_at"] = date("Y-m-d H:i:s");
         $_data["updated_at"] = $_data["created_at"];
@@ -172,8 +175,17 @@ class EvaluationController extends Controller
             $check = ExcelValidateData::run($row, $this->$category);
             if($check->error){
                 // store error messages
-                $cols = implode(", ", $check->columns);
-                $errors["message"][] =  "<b>Row $row_index:</b> Invalid data format for ".ExcelExport::rename_column($cols);
+                // invalid data format found
+                if(count($check->columns) > 0){
+                    $cols = implode(", ", $check->columns);
+                    $errors["message"][] =  "<b>Row $row_index:</b> Invalid data format for ".ExcelExport::rename_column($cols);
+                }
+                // expected column not found
+                elseif(count($check->not_found) > 0){
+                    $cols = implode(", ", $check->not_found);
+                    $errors["message"][] =  "<b>Column Not Found:</b> ".ExcelExport::rename_column($cols);
+                    break;
+                }
 
                 continue;
             }
@@ -194,7 +206,7 @@ class EvaluationController extends Controller
             Upload::delete($upload["id"]);
             return redirect("evaluation/$id/edit")->withErrors($errors);
         }
-        // save to db
+        // everything's fine, save to db
         elseif(count($inserts) > 0){
             $this->$category($inserts);
             if($category == "sales_invoice" || $category == "ar_payments"){
@@ -212,10 +224,10 @@ class EvaluationController extends Controller
                 ]
             );
         }
-        // when nothing happen
+        // nothing happen, empty excel uploaded
         else{
             Upload::delete($upload["id"]);
-            return redirect("evaluation/$id/edit")->withErrors(["message"=>"Nothing was imported!"]);
+            return redirect("evaluation/$id/edit")->withErrors(["message"=>"You have uploaded an empty excel sheet!"]);
         }
     }
 
@@ -230,23 +242,27 @@ class EvaluationController extends Controller
         //
     }
 
+    // download templates
     public function template($param)
     {
         $param = str_replace("-", "_", $param);
         ExcelExport::template($this->$param);
     }
 
+    // download upladed excels
     public function download($needle){
         $file = uploadModel::where("account_code", Auth::id())->where("id", $needle)->firstOrFail();
         return response()->download($file->location."/".$file->system_name, $file->file_name);
     }
 
+    // read uploaded excel, return in json format
     public function view_excel($needle){
         $file = uploadModel::where("account_code", Auth::id())->where("id", $needle)->firstOrFail();
         $table = $file->category;
         $select = array_flip(
             config("tablecolumns.$table")
         );
+        // remove the column that does not exist in db
         if(isset($select[""])) unset($select[""]);
 
         $rows = \DB::
@@ -276,10 +292,12 @@ class EvaluationController extends Controller
         APPayment::insert($inserts);
     }
 
+    // matching ar payments to sales invoices
     private function matching_psi($id){
         $eva = Evaluation::find($id);
 
         $upload = uploadModel::where("evaluation_id", $id)->where("category", "ar_payments")->orderBy("id", "desc")->first();
+        // ensure the payment file is uploaded
         if(!$upload) return false;
 
         $file = $upload->location."/".$upload->system_name;
@@ -293,7 +311,9 @@ class EvaluationController extends Controller
             $payment = ARPayment::where("payment_number", $payment_number)->first();
             $invoice = SaleInvoice::where("invoice_number", $invoice_number)->first();
 
+            // process abort if any of the record at both side is not found
             if($payment && $invoice){
+                // only insert if record not found
                 $psi = PaymentSaleInvoice::firstOrNew([
                     "payment_id"=>$payment->id,
                     "sale_invoice_id"=>$invoice->id
@@ -302,10 +322,12 @@ class EvaluationController extends Controller
         }
     }
 
+    // matching ap payments to purchase orders
     private function matching_pp($id){
         $eva = Evaluation::find($id);
 
         $upload = uploadModel::where("evaluation_id", $id)->where("category", "ap_payments")->orderBy("id", "desc")->first();
+        // ensure the payment file is uploaded
         if(!$upload) return false;
 
         $file = $upload->location."/".$upload->system_name;
@@ -319,7 +341,9 @@ class EvaluationController extends Controller
             $payment = APPayment::where("payment_number", $payment_number)->first();
             $purchase = Purchase::where("purchase_order_number", $purchase_order_number)->first();
 
+            // process abort if any of the record at both side is not found
             if($payment && $purchase){
+                // only insert if record not found
                 $pp = PaymentPurchase::firstOrNew([
                     "payment_id"=>$payment->id,
                     "purchase_id"=>$purchase->id

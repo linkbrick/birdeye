@@ -71,7 +71,7 @@
 
             $.get("{{ url('evaluation/excel') }}/" + val, function(data){
                 $(data.columns).each(function(k,v){
-                    v = v.replace("_", " ");
+                    v = v.replace(/_/g, " ");
                     $("#excel_viewer #excel_table thead").append("<th>"+v+"</th>");
                 });
 

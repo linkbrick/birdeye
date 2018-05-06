@@ -3,7 +3,7 @@
         <div class="card-text">
             <h4 class="card-title">
                 Purchase Order
-                @if($invoice)
+                @if($purchases)
                     <i class="material-icons">done_all</i>
                 @else
                     <i class="material-icons">watch_later</i>
