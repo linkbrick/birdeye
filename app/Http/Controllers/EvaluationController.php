@@ -14,8 +14,11 @@ use App\Classes\ExcelValidateData;
 use App\Evaluation;
 use App\Upload as uploadModel;
 use App\SaleInvoice;
-use App\Payment;
+use App\ARPayment;
 use App\PaymentSaleInvoice;
+use App\Purchase;
+use App\APPayment;
+use App\PaymentPurchase;
 
 class EvaluationController extends Controller
 {
@@ -27,7 +30,9 @@ class EvaluationController extends Controller
 
     // point to db table name
     private $sales_invoice = "sale_invoices";
-    private $payments = "payments";
+    private $ar_payments = "ar_payments";
+    private $purchases = "purchases";
+    private $ap_payments = "ap_payments";
 
     private $month = [
         "01" => "January",
@@ -85,7 +90,7 @@ class EvaluationController extends Controller
 
         if($eva){
             return redirect("evaluation")->withErrors([
-                "message"=>"Evaluation for ".$this->month[$month]." $year already been created."
+                "message"=>"Evaluation for ".$this->month[$month]." $year already been created. Click <a href='".url("evaluation/$eva->id/edit")."'>here</a> to edit."
             ]);
         }
 
@@ -116,11 +121,13 @@ class EvaluationController extends Controller
      */
     public function edit($id)
     {
-        $eva = Evaluation::where("account_code", Auth::id())->where("id", $id)->firstOrFail();
+        $evaluation = Evaluation::where("account_code", Auth::id())->where("id", $id)->firstOrFail();
         $invoice = uploadModel::where("evaluation_id", $id)->where("category", "sale_invoices")->orderBy("id", "desc")->first();
-        $payment = uploadModel::where("evaluation_id", $id)->where("category", "payments")->orderBy("id", "desc")->first();
+        $arpayment = uploadModel::where("evaluation_id", $id)->where("category", "ar_payments")->orderBy("id", "desc")->first();
+        $purchases =uploadModel::where("evaluation_id", $id)->where("category", "purchases")->orderBy("id", "desc")->first();
+        $appayment = uploadModel::where("evaluation_id", $id)->where("category", "ap_payments")->orderBy("id", "desc")->first();
 
-        return view("evaluation.form", ["evaluation"=>$eva, "invoice"=>$invoice, "payment"=>$payment]);
+        return view("evaluation.form", compact("evaluation", "invoice", "arpayment", "purchases", "appayment"));
     }
 
     /**
@@ -139,11 +146,15 @@ class EvaluationController extends Controller
         //must be the same name as global var, file_, and function name
         $category = $request->get("_category");
 
+        $data = $this->validate($request, [
+            $category."_file" => 'required'
+        ]);
+
         $columns = config("tablecolumns.".$this->$category);
 
         // save uploaded file to drive
         $param = ["account_code"=>Auth::id(), "evaluation_id"=>$id, "model"=>$this->$category];
-        $upload = Upload::save($request->file("file_".$category), $param);
+        $upload = Upload::save($request->file($category."_file"), $param);
         $file = $upload["location"];
 
         //read uploaded Excel
@@ -186,7 +197,11 @@ class EvaluationController extends Controller
         // save to db
         elseif(count($inserts) > 0){
             $this->$category($inserts);
-            $this->matching_psi($id);
+            if($category == "sales_invoice" || $category == "ar_payments"){
+                $this->matching_psi($id);
+            }elseif($category == "purchases" || $category == "ap_payments"){
+                $this->matching_pp($id);
+            }
 
             return redirect("evaluation/$id/edit")->with(
                 [
@@ -230,14 +245,22 @@ class EvaluationController extends Controller
         SaleInvoice::insert($inserts);
     }
 
-    private function payments($inserts){
-        Payment::insert($inserts);
+    private function ar_payments($inserts){
+        ARPayment::insert($inserts);
+    }
+
+    private function purchases($inserts){
+        Purchase::insert($inserts);
+    }
+
+    private function ap_payments($inserts){
+        APPayment::insert($inserts);
     }
 
     private function matching_psi($id){
         $eva = Evaluation::find($id);
 
-        $upload = uploadModel::where("evaluation_id", $id)->where("category", "payments")->orderBy("id", "desc")->first();
+        $upload = uploadModel::where("evaluation_id", $id)->where("category", "ar_payments")->orderBy("id", "desc")->first();
         if(!$upload) return false;
 
         $file = $upload->location."/".$upload->system_name;
@@ -248,13 +271,39 @@ class EvaluationController extends Controller
             $payment_number = $row->payment_number;
             $invoice_number = $row->invoice_number;
 
-            $payment = Payment::where("payment_number", $payment_number)->first();
+            $payment = ARPayment::where("payment_number", $payment_number)->first();
             $invoice = SaleInvoice::where("invoice_number", $invoice_number)->first();
 
             if($payment && $invoice){
                 $psi = PaymentSaleInvoice::firstOrNew([
                     "payment_id"=>$payment->id,
                     "sale_invoice_id"=>$invoice->id
+                ])->save();
+            }
+        }
+    }
+
+    private function matching_pp($id){
+        $eva = Evaluation::find($id);
+
+        $upload = uploadModel::where("evaluation_id", $id)->where("category", "ap_payments")->orderBy("id", "desc")->first();
+        if(!$upload) return false;
+
+        $file = $upload->location."/".$upload->system_name;
+        if(!file_exists($file)) return false;
+
+        $excel = Excel::load($file)->get();
+        foreach($excel as $row){
+            $payment_number = $row->payment_number;
+            $purchase_order_number = $row->purchase_order_number;
+
+            $payment = APPayment::where("payment_number", $payment_number)->first();
+            $purchase = Purchase::where("purchase_order_number", $purchase_order_number)->first();
+
+            if($payment && $purchase){
+                $pp = PaymentPurchase::firstOrNew([
+                    "payment_id"=>$payment->id,
+                    "purchase_id"=>$purchase->id
                 ])->save();
             }
         }

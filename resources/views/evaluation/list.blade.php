@@ -24,19 +24,21 @@
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Evaluation Date</th>
-                                    <th>Created At</th>
-                                    <th class="disabled-sorting">Sales Invoice</th>
-                                    <th class="disabled-sorting">AR Payment</th>
+                                    <th>Evaluation</th>
+                                    <th class="text-center">Sales Invoice</th>
+                                    <th class="text-center">AR Payment</th>
+                                    <th class="text-center">Purchase Order</th>
+                                    <th class="text-center">AP Payment</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>Evaluation Date</th>
-                                    <th>Created At</th>
                                     <th class="text-center">Sales Invoice</th>
                                     <th class="text-center">AR Payment</th>
+                                    <th class="text-center">Purchase Order</th>
+                                    <th class="text-center">AP Payment</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                             </tfoot>
@@ -47,10 +49,6 @@
                                         <div class="hidden">{{ $eva->code }}</div>
                                         {{ date("F Y", strtotime($eva->code."-01")) }}
                                     </td>
-                                    <td>
-                                        <div class="hidden">{{ $eva->created_at }}</div>
-                                        {{ date("d F Y, g:ia", strtotime($eva->created_at)) }}
-                                    </td>
                                     <td class="text-center">
                                         @if($eva->upload()->where("category", "sale_invoices")->count() > 0)
                                         <i class="material-icons text-success">done_all</i>
@@ -59,7 +57,21 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        @if($eva->upload()->where("category", "payments")->count() > 0)
+                                        @if($eva->upload()->where("category", "ar_payments")->count() > 0)
+                                        <i class="material-icons text-success">done_all</i>
+                                        @else
+                                        <i class="material-icons text-danger">watch_later</i>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if($eva->upload()->where("category", "purchases")->count() > 0)
+                                        <i class="material-icons text-success">done_all</i>
+                                        @else
+                                        <i class="material-icons text-danger">watch_later</i>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if($eva->upload()->where("category", "ap_payments")->count() > 0)
                                         <i class="material-icons text-success">done_all</i>
                                         @else
                                         <i class="material-icons text-danger">watch_later</i>
