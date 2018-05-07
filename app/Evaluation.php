@@ -9,6 +9,6 @@ class Evaluation extends Model
     protected $fillable = ['account_code','code'];
 
     public function upload(){
-        return $this->hasMany('App\Upload');
+        return $this->hasMany('App\Upload', 'evaluation_id', 'id');
     }
 }

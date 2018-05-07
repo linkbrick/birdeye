@@ -12,7 +12,7 @@ class Upload extends Model
     protected $fillable = ['account_code','evaluation_id', 'category', 'location', 'file_name', 'system_name', 'file_type', 'file_size'];
 
     public function evaluation(){
-        return $this->belongsTo('App\Evaluation');
+        return $this->belongsTo('App\Evaluation', "evaluation_id");
     }
 
     public function payments(){

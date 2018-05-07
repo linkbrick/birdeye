@@ -29,10 +29,12 @@ class EvaluationController extends Controller
      */
 
     // point to db table name
-    private $sales_invoice = "sale_invoices";
-    private $ar_payments = "ar_payments";
-    private $purchases = "purchases";
-    private $ap_payments = "ap_payments";
+    private $pointer = [
+        "sales_invoice" => ["title" => "Sales Invoice", "model" => "sale_invoices"],
+        "ar_payments" => ["title" => "AR Payment", "model" => "ar_payments"],
+        "purchases" => ["title" => "Purchase Order", "model" => "purchases"],
+        "ap_payments" => ["title" => "AP Payment", "model" => "ap_payments"],
+    ];
 
     private $month = [
         "01" => "January",
@@ -51,16 +53,15 @@ class EvaluationController extends Controller
 
     public function index()
     {
-        $eva = Evaluation::where("account_code", Auth::id())->orderBy("code", "desc")->get();
-        $month = $this->month;
-
+        $eva = Evaluation::with("upload")->where("account_code", Auth::id())->orderBy("code", "desc")->get();
+        $month = $this->month;        
         $year = [];
         $_y = date("Y");
         for($i = -1; $i<2; $i++){
             $year[] = $_y + $i;
         }
 
-        return view("evaluation.list", ["month"=>$month, "year"=>$year, "evaluation"=>$eva]);
+        return view("evaluation.list", ["month"=>$month, "year"=>$year, "uploads"=>$this->pointer, "evaluation"=>$eva]);
     }
 
     /**
@@ -122,12 +123,16 @@ class EvaluationController extends Controller
     public function edit($id)
     {
         $evaluation = Evaluation::where("account_code", Auth::id())->where("id", $id)->firstOrFail();
-        $invoice = uploadModel::where("evaluation_id", $id)->where("category", "sale_invoices")->orderBy("id", "desc")->first();
-        $arpayment = uploadModel::where("evaluation_id", $id)->where("category", "ar_payments")->orderBy("id", "desc")->first();
-        $purchases =uploadModel::where("evaluation_id", $id)->where("category", "purchases")->orderBy("id", "desc")->first();
-        $appayment = uploadModel::where("evaluation_id", $id)->where("category", "ap_payments")->orderBy("id", "desc")->first();
+        $uploads = [];
+        foreach($this->pointer as $category=>$data){
+            $uploads[] = [
+                "title" => $data["title"],
+                "category" => $category,
+                "model" => uploadModel::where("evaluation_id", $id)->where("category", $data["model"])->orderBy("id", "desc")->first()
+            ];
+        }
 
-        return view("evaluation.form", compact("evaluation", "invoice", "arpayment", "purchases", "appayment"));
+        return view("evaluation.form", compact("evaluation", "uploads"));
     }
 
     /**
@@ -146,16 +151,21 @@ class EvaluationController extends Controller
         // must be the same name as global var, xxx_file, and function name
         $category = $request->get("_category");
 
+        // check is this category is available
+        if(!isset($this->pointer[$category])){
+            return redirect("evaluation/$id/edit")->withErrors(["message"=>"Something went wrong. Please check with your system administrator!"]);
+        }
+
         // ensure the upload file is not empty
         $data = $this->validate($request, [
             $category."_file" => 'required'
         ]);
 
         // get the column names
-        $columns = config("tablecolumns.".$this->$category);
+        $columns = config("tablecolumns.".$this->pointer[$category]["model"]);
 
         // save file to local drive
-        $param = ["account_code"=>Auth::id(), "evaluation_id"=>$id, "model"=>$this->$category];
+        $param = ["account_code"=>Auth::id(), "evaluation_id"=>$id, "model"=>$this->pointer[$category]["model"]];
         $upload = Upload::save($request->file($category."_file"), $param);
         $file = $upload["location"];
 
@@ -172,7 +182,7 @@ class EvaluationController extends Controller
             $row_index++;
 
             // check data format for error
-            $check = ExcelValidateData::run($row, $this->$category);
+            $check = ExcelValidateData::run($row, $this->pointer[$category]["model"]);
             if($check->error){
                 // store error messages
                 // invalid data format found

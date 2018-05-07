@@ -25,58 +25,38 @@
                             <thead>
                                 <tr>
                                     <th>Evaluation</th>
-                                    <th class="text-center">Sales Invoice</th>
-                                    <th class="text-center">AR Payment</th>
-                                    <th class="text-center">Purchase Order</th>
-                                    <th class="text-center">AP Payment</th>
+                                    @foreach($uploads as $category=>$data)
+                                        <th class="text-center">{{ $data["title"] }}</th>
+                                    @endforeach
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>Evaluation Date</th>
-                                    <th class="text-center">Sales Invoice</th>
-                                    <th class="text-center">AR Payment</th>
-                                    <th class="text-center">Purchase Order</th>
-                                    <th class="text-center">AP Payment</th>
+                                    @foreach($uploads as $category=>$data)
+                                        <th class="text-center">{{ $data["title"] }}</th>
+                                    @endforeach
                                     <th class="text-right">Actions</th>
                                 </tr>
                             </tfoot>
                             <tbody>
                                 @foreach($evaluation as $index=>$eva)
+
                                 <tr>
                                     <td>
                                         <div class="hidden">{{ $eva->code }}</div>
                                         {{ date("F Y", strtotime($eva->code."-01")) }}
                                     </td>
-                                    <td class="text-center">
-                                        @if($eva->upload()->where("category", "sale_invoices")->count() > 0)
-                                        <i class="material-icons text-success">done_all</i>
-                                        @else
-                                        <i class="material-icons text-danger">watch_later</i>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if($eva->upload()->where("category", "ar_payments")->count() > 0)
-                                        <i class="material-icons text-success">done_all</i>
-                                        @else
-                                        <i class="material-icons text-danger">watch_later</i>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if($eva->upload()->where("category", "purchases")->count() > 0)
-                                        <i class="material-icons text-success">done_all</i>
-                                        @else
-                                        <i class="material-icons text-danger">watch_later</i>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if($eva->upload()->where("category", "ap_payments")->count() > 0)
-                                        <i class="material-icons text-success">done_all</i>
-                                        @else
-                                        <i class="material-icons text-danger">watch_later</i>
-                                        @endif
-                                    </td>
+                                    @foreach($uploads as $category=>$data)
+                                        <td class="text-center">
+                                            @if($eva->upload->where("category", $data["model"])->count() > 0)
+                                                <i class="material-icons text-success">done_all</i>
+                                            @else
+                                                <i class="material-icons text-danger">watch_later</i>
+                                            @endif
+                                        </td>
+                                    @endforeach
                                     <td class="text-right">
                                         <a href="{{ url('evaluation/'.$eva->id.'/edit') }}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">mode_edit</i></a>
                                     </td>

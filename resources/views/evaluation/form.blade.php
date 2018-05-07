@@ -12,25 +12,18 @@
 
     @include('layouts.messages')
 
-    <div class="row">
+    @foreach($uploads as $index=>$upload)
+        @if($index%2 == 0)
+        <div class="row">
+        @endif
+        <?php $model = $upload["model"]; ?>
         <div class="col-md-6">
-            @include('evaluation.form_upload_sales_invoice')
+            @include('evaluation.form_upload')
         </div>
-
-        <div class="col-md-6">
-            @include('evaluation.form_upload_ar_payment')
+        @if($index%2 == 1 || count($uploads)==($index+1))
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            @include('evaluation.form_upload_purchases')
-        </div>
-
-        <div class="col-md-6">
-            @include('evaluation.form_upload_ap_payment')
-        </div>
-    </div>
+        @endif
+    @endforeach
 </div>
 
 <div class="modal fade" id="excel_viewer" tabindex="-1" role="dialog" aria-labelledby="birdeye" aria-hidden="true">
