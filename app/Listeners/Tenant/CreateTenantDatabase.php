@@ -2,10 +2,9 @@
 
 namespace App\Listeners\Tenant;
 
+use App\Events\Tenant\TenantDatabaseCreated;
 use App\Events\Tenant\TenantWasCreated;
 use App\Tenant\Database\DatabaseCreator;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateTenantDatabase
 {
@@ -34,5 +33,6 @@ class CreateTenantDatabase
         }
 
         // @todo event
+        event(new TenantDatabaseCreated($event->tenant));
     }
 }
