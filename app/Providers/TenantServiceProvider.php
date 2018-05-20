@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Console\Commands\Tenant\Migrate;
 use App\Console\Commands\Tenant\MigrateRollback;
 use App\Console\Commands\Tenant\Seed;
+use App\Tenant\Cache\TenantCacheManager;
 use App\Tenant\Database\DatabaseManager;
 use App\Tenant\Manager;
 use Illuminate\Http\Request;
@@ -52,6 +53,10 @@ class TenantServiceProvider extends ServiceProvider
 
         $this->app->singleton(Seed::class, function ($app){
             return new Seed($app->make('db'), $app->make(DatabaseManager::class));
+        });
+
+        $this->app->extend('cache', function () {
+            return new TenantCacheManager($this->app);
         });
     }
 }
