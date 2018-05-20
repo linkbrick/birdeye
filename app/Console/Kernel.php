@@ -3,6 +3,8 @@
 namespace App\Console;
 
 use App\Console\Commands\Tenant\Migrate;
+use App\Console\Commands\Tenant\MigrateRollback;
+use App\Console\Commands\Tenant\Seed;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,6 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Migrate::class,
+        MigrateRollback::class,
+        Seed::class,
     ];
 
     /**

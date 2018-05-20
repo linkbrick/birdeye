@@ -4,13 +4,12 @@ namespace App\Console\Commands\Tenant;
 
 use App\Company;
 use App\Tenant\Database\DatabaseManager;
-use App\Tenant\Models\Tenant;
 use App\Tenant\Traits\Console\AcceptsMultipleTenants;
 use App\Tenant\Traits\Console\FetchesTenants;
-use Illuminate\Database\Console\Migrations\MigrateCommand;
+use Illuminate\Database\Console\Migrations\RollbackCommand;
 use Illuminate\Database\Migrations\Migrator;
 
-class Migrate extends MigrateCommand
+class MigrateRollback extends RollbackCommand
 {
     use FetchesTenants,AcceptsMultipleTenants;
     /**
@@ -18,7 +17,7 @@ class Migrate extends MigrateCommand
      *
      * @var string
      */
-    protected $description = 'Run migrations for tenants';
+    protected $description = 'Rollback migrations for tenants';
 
     protected $db;
 
@@ -31,7 +30,7 @@ class Migrate extends MigrateCommand
     {
 
         parent::__construct($migrator);
-        $this->setName('tenants:migrate');
+        $this->setName('tenants:rollback');
 
         $this->specifyParameters();
 
@@ -60,9 +59,4 @@ class Migrate extends MigrateCommand
 
     }
 
-
-    protected function getMigrationPaths()
-    {
-        return [database_path('migrations/tenant')];
-    }
 }

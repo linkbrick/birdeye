@@ -4,13 +4,12 @@ namespace App\Console\Commands\Tenant;
 
 use App\Company;
 use App\Tenant\Database\DatabaseManager;
-use App\Tenant\Models\Tenant;
 use App\Tenant\Traits\Console\AcceptsMultipleTenants;
 use App\Tenant\Traits\Console\FetchesTenants;
-use Illuminate\Database\Console\Migrations\MigrateCommand;
-use Illuminate\Database\Migrations\Migrator;
+use Illuminate\Database\Console\Seeds\SeedCommand;
+use Illuminate\Database\ConnectionResolverInterface as Resolver;
 
-class Migrate extends MigrateCommand
+class Seed extends SeedCommand
 {
     use FetchesTenants,AcceptsMultipleTenants;
     /**
@@ -18,7 +17,7 @@ class Migrate extends MigrateCommand
      *
      * @var string
      */
-    protected $description = 'Run migrations for tenants';
+    protected $description = 'Seeds tenant databases';
 
     protected $db;
 
@@ -27,11 +26,11 @@ class Migrate extends MigrateCommand
      *
      * @return void
      */
-    public function __construct(Migrator $migrator, DatabaseManager $db)
+    public function __construct(Resolver $resolver , DatabaseManager $db)
     {
 
-        parent::__construct($migrator);
-        $this->setName('tenants:migrate');
+        parent::__construct($resolver);
+        $this->setName('tenants:seed');
 
         $this->specifyParameters();
 
@@ -60,9 +59,4 @@ class Migrate extends MigrateCommand
 
     }
 
-
-    protected function getMigrationPaths()
-    {
-        return [database_path('migrations/tenant')];
-    }
 }
