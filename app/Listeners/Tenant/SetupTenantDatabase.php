@@ -17,7 +17,8 @@ class SetupTenantDatabase
     public function handle(TenantDatabaseCreated $event)
     {
         if( $this->migrate($event->tenant) ){
-            $this->seed($event->tenant);
+            // temporary disable the seed, nothing to seed yet
+            //$this->seed($event->tenant);
         }
     }
 

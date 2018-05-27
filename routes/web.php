@@ -23,27 +23,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('people/roles', 'People\RoleController');
     Route::resource('people/abilities', 'People\AbilityController');
 
-    // upload
-    Route::resource('evaluation', 'EvaluationController');
-    Route::get('evaluation/template/{p}', 'EvaluationController@template');
-    Route::get('evaluation/excel/{p}', 'EvaluationController@view_excel');
-    // Download
-    Route::get('evaluation/download/{s}', 'EvaluationController@download');
-
     // companies
     Route::resource('companies', 'CompanyController');
 
     // tenant switch
     Route::get('tenant/{company}','TenantController@switchTenant')->name('tenant.switch');
-    // profile
-    //Route::resource('maintenance/profiles', 'Maintenance\ProfileController');
-
-
-
-    // Page Controller
-    // Route::get('/home','HomeController@index')->name('home');
-    Route::get('/career_conversation','PageController@careerConversation')->name('career_conversation');
-    Route::get('/home','HomeController@index')->name('home');
-    //Route::get('/career_conversation','PageController@careerConversation')->name('career_conversation');
 
 });

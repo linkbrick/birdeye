@@ -79,18 +79,18 @@
 
             <div class="content">
                 <div class="title">
-                    <p>Succession Planning System</p>
+                    <p>Bird Eye View</p>
                 </div>
                 <div class="m-b-md">
-                    <small>Exclusively for Public Bank</small>
+                    <small>Still need to think a better name!!</small>
                 </div>
 
                 <br/>
                 <div class="links">
                     <a href="https://demos.creative-tim.com/material-dashboard-pro/examples/dashboard.html?_ga=2.113425863.1171733163.1522896809-158975494.1517149762">Theme Sample</a>
                     <a href="https://drive.google.com/open?id=1VP_kUYem-hE7zE8N5H9SBneNLk8OBjzh">Theme Zip File</a>
-                    <a href="https://xd.adobe.com/view/442472f1-f55d-47c5-8714-f44ec91e3d0b">Prototype Url</a>
-                    <a href="https://gitlab.com/accendo-labs/sps">Gitlab</a>
+                    <a href="#">Prototype Url (Yet to hire a designer)</a>
+                    <a href="https://github.com/linkbrick/birdeye.git">GitHub</a>
                 </div>
             </div>
         </div>

@@ -57,42 +57,6 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
             </li>
 
             <li class="nav-item ">
-                <a data-toggle="collapse" href="#tasklist" aria-expanded="false" class="nav-link">
-                    <i class="material-icons">assignment</i>
-                    <p> Task List
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="tasklist">
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}" data-bind="">
-                                <span class="sidebar-mini"> <i class="material-icons">folder_shared</i> </span>
-                                <span class="sidebar-normal"> SP List (Nomination) </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                                <span class="sidebar-mini"> <i class="material-icons">forum</i></span>
-                                <span class="sidebar-normal"> Career Conversation </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> <i class="material-icons">import_contacts</i> </span>
-                                <span class="sidebar-normal"> Assessment </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> <i class="material-icons">show_chart</i> </span>
-                                <span class="sidebar-normal"> IDP </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item ">
                 <a data-toggle="collapse" href="#users" aria-expanded="false" class="nav-link">
                     <i class="material-icons">people</i>
                     <p> People
@@ -125,19 +89,7 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
             </li>
 
 
-            <li class="nav-item ">
-                <a class="nav-link" href="#">
-                    <i class="material-icons">insert_drive_file</i>
-                    <p> Report </p>
-                </a>
-            </li>
 
-             <li class="nav-item ">
-                <a class="nav-link" href="#">
-                    <i class="material-icons">find_in_page</i>
-                    <p> Audit Trial </p>
-                </a>
-            </li>
 
         </ul>
     </div>
