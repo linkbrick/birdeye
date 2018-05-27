@@ -39,6 +39,14 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 </a>
             </li>
 
+
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('entities.index') }}">
+                    <i class="material-icons">store</i>
+                    <p> Entities </p>
+                </a>
+            </li>
+
             <li class="nav-item ">
                 <a class="nav-link" href="{{ route('invoices.index') }}">
                     <i class="material-icons">assignment</i>
