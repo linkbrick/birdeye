@@ -11,6 +11,11 @@ class SaleInvoice extends Model
 
     public function payments()
     {
-        return $this->belongsToMany(Payment::class);
+        return $this->belongsToMany(ARPayment::class);
+    }
+
+    public function upload()
+    {
+        return $this->belongsTo(Upload::class);
     }
 }

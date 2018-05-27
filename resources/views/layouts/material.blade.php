@@ -45,7 +45,7 @@
             display: none; /* Hidden by default */
             width: 100%; /* Full width (cover the whole page) */
             height: 100%; /* Full height (cover the whole page) */
-            top: 0; 
+            top: 0;
             left: 0;
             right: 0;
             bottom: 0;
@@ -53,6 +53,8 @@
             z-index: 1050; /* Specify a stack order in case you're using a different order for other elements */
             cursor: pointer; /* Add a pointer on hover */
         }
+
+        .hidden{display: none; visibility: hidden;}
     </style>
 
 </head>
@@ -79,7 +81,7 @@
         };
     </script>
     <script src="{{ mix('js/app.js') }}"></script>
-    
+
     <script src="{{ asset('js/material.js') }}"></script>
     <script src="{{ asset('js/sweetalert.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.6.0/src/loadingoverlay.min.js"></script>
@@ -92,9 +94,10 @@
             });
         }
     </script>
+    
     @stack('scripts')
     <script src="{{ asset('js/vue_init.js') }}"></script>
-     <script src="{{ asset('js/Rx.js') }}"></script>
+    <script src="{{ asset('js/Rx.js') }}"></script>
     <script>
         const loadingSpinner={
             show:function(){document.getElementById("overlay").style.display = "block"},
@@ -118,7 +121,7 @@
                     setTimeout(function(){
                         menus[menuIter].scrollIntoView();
                     },1000)
-                    
+
                     break;
                 }
             };
