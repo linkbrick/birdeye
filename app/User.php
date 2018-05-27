@@ -28,13 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function scopeActive($query)
+    public function companies()
     {
-        return $query->where('status', 'ACTIVE');
-    }
-
-    public function succession_plannings()
-    {
-        return $this->hasMany(SuccessionPlanning::class);
+        return $this->belongsToMany(Company::class);
     }
 }
