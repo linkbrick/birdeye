@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUploadIdToPayments extends Migration
+class CreateEntitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddUploadIdToPayments extends Migration
      */
     public function up()
     {
-        Schema::table('payments', function($table) {
-            $table->integer('upload_id');
+        Schema::create('entities', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->integer('parent_id');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddUploadIdToPayments extends Migration
      */
     public function down()
     {
-        Schema::table('payments', function($table) {
-            $table->dropColumn('upload_id');
-        });
+        Schema::dropIfExists('entities');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEvaluationsTable extends Migration
+class CreateAccountReceivablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateEvaluationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('evaluations', function (Blueprint $table) {
+        Schema::create('account_receivables', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('account_code');
-            $table->string('code');
+            $table->integer('invoice_id')->nullable()->unsigned()->index();
+            $table->decimal('payment_amount',20,4);
+            $table->date('payment_date');
+            $table->integer('user_id')->nullable()->unsigned()->index();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateEvaluationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('evaluations');
+        Schema::dropIfExists('account_receivables');
     }
 }
