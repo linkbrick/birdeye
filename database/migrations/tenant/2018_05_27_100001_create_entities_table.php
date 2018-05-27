@@ -16,7 +16,7 @@ class CreateEntitiesTable extends Migration
         Schema::create('entities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('parent_id');
+            $table->integer('parent_id')->nullable()->unsigned()->index();
             $table->timestamps();
         });
     }

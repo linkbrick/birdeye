@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Entity extends Model
 {
     use ForTenants;
+
+    protected $fillable = ['name'];
 }

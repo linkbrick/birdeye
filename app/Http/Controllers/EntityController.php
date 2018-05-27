@@ -15,6 +15,14 @@ class EntityController extends Controller
 
     public function create()
     {
+        return view('entities.create');
+    }
 
+    public function store(Request $request)
+    {
+        // store the entity
+        Entity::create($request->only(['name']));
+
+        return redirect()->route('entities.index')->withSuccess('Entity has been created.');
     }
 }
