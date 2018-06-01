@@ -74,6 +74,7 @@ Setting = {
 
     initMaterialWizard: function() {
         // Code for the Validator
+        /*
         var $validator = $('.wizard-card form').validate({
             rules: {
                 firstname: {
@@ -94,8 +95,10 @@ Setting = {
                 $(element).parent('div').addClass('has-error');
             }
         });
+        */
 
         // Wizard Initialization
+        /*
         $('.wizard-card').bootstrapWizard({
             'tabClass': 'nav nav-pills',
             'nextSelector': '.btn-next',
@@ -172,6 +175,7 @@ Setting = {
                 refreshAnimation($wizard, index);
             }
         });
+        */
 
 
         // Prepare the preview for profile picture
@@ -518,7 +522,7 @@ Setting = {
     },
 
     initDashboardPageCharts: function() {
-        if ($('#dailySalesChart').length != 0 && $('#completedTasksChart').length != 0 && $('#websiteViewsChart').length != 0) {
+        if ($('#dailySalesChart').length != 0 && $('#websiteViewsChart').length != 0) {
             /* ----------==========     Daily Sales Chart initialization    ==========---------- */
 
             dataDailySalesChart = {
@@ -544,37 +548,37 @@ Setting = {
 
             var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
 
-            md.startAnimationForLineChart(dailySalesChart);
+            // md.startAnimationForLineChart(dailySalesChart);
 
 
 
             /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
 
-            dataCompletedTasksChart = {
-                labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-                series: [
-                    [230, 750, 450, 300, 280, 240, 200, 190]
-                ]
-            };
-
-            optionsCompletedTasksChart = {
-                lineSmooth: Chartist.Interpolation.cardinal({
-                    tension: 0
-                }),
-                low: 0,
-                high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-                chartPadding: {
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0
-                }
-            }
-
-            var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-            // start animation for the Completed Tasks Chart - Line Chart
-            md.startAnimationForLineChart(completedTasksChart);
+            // dataCompletedTasksChart = {
+            //     labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
+            //     series: [
+            //         [230, 750, 450, 300, 280, 240, 200, 190]
+            //     ]
+            // };
+            //
+            // optionsCompletedTasksChart = {
+            //     lineSmooth: Chartist.Interpolation.cardinal({
+            //         tension: 0
+            //     }),
+            //     low: 0,
+            //     high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+            //     chartPadding: {
+            //         top: 0,
+            //         right: 0,
+            //         bottom: 0,
+            //         left: 0
+            //     }
+            // }
+            //
+            // var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+            //
+            // // start animation for the Completed Tasks Chart - Line Chart
+            // md.startAnimationForLineChart(completedTasksChart);
 
 
             /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
@@ -610,9 +614,9 @@ Setting = {
                 }]
             ];
             var websiteViewsChart = Chartist.Bar('#websiteViewsChart', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
-
-            //start animation for the Emails Subscription Chart
-            md.startAnimationForBarChart(websiteViewsChart);
+            //
+            // //start animation for the Emails Subscription Chart
+            // md.startAnimationForBarChart(websiteViewsChart);
         }
     },
 
