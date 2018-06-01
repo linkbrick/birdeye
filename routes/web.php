@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('prototype/dashboard','DashboardController@sample');
+
 Route::group(['middleware' => 'auth'], function () {
     // users
     Route::resource('people/users', 'People\UserController');
