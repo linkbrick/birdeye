@@ -10,6 +10,34 @@
 @section('content')
     <div class="container-fluid" >
 
+        <div class="jumbotron" style="background-color:white">
+        <div class="row">
+            <div class="col-md-6 ml-auto mr-auto text-center">
+                <h2 class="text-center">Dashboard</h2>
+                <h5 class="description">This chart consists LIWIDA and LWD.</h5>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-4">
+                <select class="selectpicker"  name="action" id="actions"
+                        data-style="select-with-transition"
+                        title="Please select a filter" data-size="7"  data-live-search="true" >
+                    <option value="all" style="color:black" >All</option>
+                    <option value="all" style="color:black" >Liwida</option>
+                    <option value="all" style="color:black" >LWD</option>
+
+
+                </select>
+            </div>
+            <div class="col col-lg-1">
+                <a href="#" class="btn btn-primary btn-link">Filter</a>
+            </div>
+            <div class="col col-lg-1">
+                <a href="#" class="btn btn-primary btn-link">Clear</a>
+            </div>
+        </div>
+        </div>
         {{--Begin:Sales + Purchases--}}
         <div class="row">
             <div class="col-md-6 col-sm-12">
