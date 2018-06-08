@@ -84,6 +84,7 @@
 
     <script src="{{ asset('js/material.js') }}"></script>
     <script src="{{ asset('js/sweetalert.js') }}"></script>
+    <script src="{{ asset('js/chartist.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.6.0/src/loadingoverlay.min.js"></script>
     <script src="{{ asset('js/setting.js') }}"></script>
     <script>
