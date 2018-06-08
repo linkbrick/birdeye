@@ -25,4 +25,10 @@ class EntityController extends Controller
 
         return redirect()->route('entities.index')->withSuccess('Entity has been created.');
     }
+
+    public function switchEntity($id)
+    {
+        session()->put('entity',$id);
+        return back();
+    }
 }

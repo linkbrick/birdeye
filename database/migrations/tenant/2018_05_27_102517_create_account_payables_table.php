@@ -15,6 +15,7 @@ class CreateAccountPayablesTable extends Migration
     {
         Schema::create('account_payables', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('entity_id')->nullable()->unsigned()->index();
             $table->integer('bill_id')->nullable()->unsigned()->index();
             $table->decimal('payment_amount',20,4);
             $table->date('payment_date');

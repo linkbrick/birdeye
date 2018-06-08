@@ -55,6 +55,8 @@
         }
 
         .hidden{display: none; visibility: hidden;}
+
+        .card-inline{ display:inline;line-height: 50px; }
     </style>
 
 </head>
@@ -95,7 +97,7 @@
             });
         }
     </script>
-    
+
     @stack('scripts')
     <script src="{{ asset('js/vue_init.js') }}"></script>
     <script src="{{ asset('js/Rx.js') }}"></script>

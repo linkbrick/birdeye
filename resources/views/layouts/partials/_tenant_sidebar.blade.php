@@ -49,28 +49,28 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
 
             <li class="nav-item ">
                 <a class="nav-link" href="{{ route('invoices.index') }}">
-                    <i class="material-icons">assignment</i>
+                    <i class="material-icons">{{ config("tablecolumns.invoices.icon") }}</i>
                     <p> Invoices </p>
                 </a>
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="{{ url('evaluation') }}">
-                    <i class="material-icons">exposure_plus_1</i>
+                <a class="nav-link" href="{{ route('account_receivables.index') }}">
+                    <i class="material-icons">{{ config("tablecolumns.account_receivables.icon") }}</i>
                     <p> Account Receivable </p>
                 </a>
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="{{ url('evaluation') }}">
-                    <i class="material-icons">shop</i>
+                <a class="nav-link" href="{{ route('bills.index') }}">
+                    <i class="material-icons">{{ config("tablecolumns.bills.icon") }}</i>
                     <p> Bills </p>
                 </a>
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="{{ url('evaluation') }}">
-                    <i class="material-icons">exposure_neg_1</i>
+                <a class="nav-link" href="{{ route('account_payables.index') }}">
+                    <i class="material-icons">{{ config("tablecolumns.account_payables.icon") }}</i>
                     <p> Account Payable </p>
                 </a>
             </li>

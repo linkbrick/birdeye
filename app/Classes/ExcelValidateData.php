@@ -4,29 +4,29 @@ namespace App\Classes;
 class ExcelValidateData
 {
     public static function run($data, $table_name){
-        $cols = config("tablecolumns.".$table_name);
+        $cols = config("tablecolumns.".$table_name.".columns");
         $result["error"] = false;
         $result["columns"] = [];
         $result["not_found"] = [];
 
         foreach($cols as $key=>$col){
-            if($col == "") continue;
+            $col_name = $col["name"];
             // if expected column does not exist
-            if(!isset($data->$key)){
+            if(!isset($data->$col_name)){
                 $result["error"] = true;
-                $result["not_found"][] = $key;
+                $result["not_found"][] = $col_name;
                 continue;
             }
 
             $is_valid = self::_check(
-                \Schema::getColumnType($table_name, $col),
-                $data->$key
+                $col["type"],
+                $data->$col_name
             );
 
             // if data format input is invalid
             if(!$is_valid){
                 $result["error"] = true;
-                $result["columns"][] = $key;
+                $result["columns"][] = $col_name;
             }
         }
 

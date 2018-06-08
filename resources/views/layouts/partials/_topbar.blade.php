@@ -19,7 +19,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        Companies <span class="caret"></span>
+                        {{ optional(request()->tenant())->name ?:"Companies" }} <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @if($companies->count())
@@ -33,6 +33,25 @@
                         <a class="dropdown-item" href="{{ route('companies.create') }}">New company</a>
                     </div>
                 </li>
+
+                @if(isset($_entities))
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ optional($_entity)->name ?:"Entities" }} <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @if($_entities->count())
+                            @foreach($_entities as $entity)
+                                <a href="{{ route('entity.switch', $entity) }}" class="dropdown-item">
+                                    {{ $entity->name }}
+                                </a>
+                            @endforeach
+                            <div class="dropdown-divider"></div>
+                        @endif
+                        <a class="dropdown-item" href="{{ route('entities.create') }}">New entity</a>
+                    </div>
+                </li>
+                @endif
 
                 @tenant
                 <li>
@@ -79,4 +98,3 @@
         </div>
     </div>
 </nav>
-
