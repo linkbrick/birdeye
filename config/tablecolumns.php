@@ -1,41 +1,131 @@
 <?php
 return [
-    'sale_invoices' => [
-        //column name in excel => column name in db
-        "customer_code" => "customer_code",
-        "customer_name" => "customer_name",
-        "invoice_number" => "invoice_number",
-        "invoice_date" => "invoice_date",
-        "total_before_tax" => "total_before_tax",
-        "tax" => "tax",
-        "total" => "total"
+    'invoices' => [
+        "title" => "Invoices",
+        "icon" => "assignment",
+        "columns" => [
+            [
+                "label" => "Customer Code",
+                "name" => "customer_code",
+                "type" => "string"
+            ],
+            [
+                "label" => "Customer Name",
+                "name" => "customer_name",
+                "type" => "string"
+            ],
+            [
+                "label" => "Invoice Number",
+                "name" => "invoice_number",
+                "type" => "string"
+            ],
+            [
+                "label" => "Invoice Date",
+                "name" => "invoice_date",
+                "type" => "date"
+            ],
+            [
+                "label" => "Total Before Tax",
+                "name" => "total_before_tax",
+                "type" => "decimal"
+            ],
+            [
+                "label" => "Tax",
+                "name" => "tax",
+                "type" => "decimal"
+            ],
+            [
+                "label" => "Total",
+                "name" => "total",
+                "type" => "decimal"
+            ],
+        ]
     ],
 
-    'ar_payments' => [
-        //column name in excel => column name in db
-        "payment_number" => "payment_number",
-        "payment_date" => "payment_date",
-        "payment_amount" => "payment_amount",
-        "invoice_number" => ""
+    'account_receivables' => [
+        "title" => "Account Receivables",
+        "icon" => "exposure_plus_1",
+        "columns" => [
+            [
+                "label" => "Invoice ID",
+                "name" => "invoice_id",
+                "type" => "string"
+            ],
+            [
+                "label" => "Payment Amount",
+                "name" => "payment_amount",
+                "type" => "decimal"
+            ],
+            [
+                "label" => "Payment Date",
+                "name" => "payment_date",
+                "type" => "date"
+            ],
+        ]
     ],
 
-    'purchases' => [
-        //column name in excel => column name in db
-        "vendor_code" => "vendor_code",
-        "vendor_name" => "vendor_name",
-        "purchase_order_number" => "purchase_order_number",
-        "purchase_date" => "purchase_date",
-        "total_before_tax" => "total_before_tax",
-        "tax" => "tax",
-        "total" => "total"
+    'bills' => [
+        "title" => "Bills",
+        "icon" => "shop",
+        "columns" => [
+            [
+                "label" => "Vendor Code",
+                "name" => "vendor_code",
+                "type" => "string"
+            ],
+            [
+                "label" => "Vendor Name",
+                "name" => "vendor_name",
+                "type" => "string"
+            ],
+            [
+                "label" => "Bill Number",
+                "name" => "bill_number",
+                "type" => "string"
+            ],
+            [
+                "label" => "Bill Date",
+                "name" => "bill_date",
+                "type" => "date"
+            ],
+            [
+                "label" => "Total Before Tax",
+                "name" => "total_before_tax",
+                "type" => "decimal"
+            ],
+            [
+                "label" => "Tax",
+                "name" => "tax",
+                "type" => "decimal"
+            ],
+            [
+                "label" => "Total",
+                "name" => "total",
+                "type" => "decimal"
+            ],
+        ]
     ],
 
-    'ap_payments' => [
-        //column name in excel => column name in db
-        "payment_number" => "payment_number",
-        "payment_date" => "payment_date",
-        "payment_amount" => "payment_amount",
-        "purchase_order_number" => ""
+    'account_payables' => [
+        "title" => "Account Payables",
+        "icon" => "exposure_neg_1",
+        "columns" => [
+            [
+                "label" => "Bill ID",
+                "name" => "bill_id",
+                "type" => "string"
+            ],
+            [
+                "label" => "Payment Amount",
+                "name" => "payment_amount",
+                "type" => "decimal"
+            ],
+            [
+                "label" => "Payment Date",
+                "name" => "payment_date",
+                "type" => "date"
+            ],
+        ]
     ],
 ];
 ?>

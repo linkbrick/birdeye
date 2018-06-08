@@ -12,8 +12,8 @@ class ExcelExport
 
         // get table columns
         $data = array_map(
-                    "self::rename_column",
-                    array_keys(config("tablecolumns.".self::$table_name))
+                    "self::get_label",
+                    config("tablecolumns.".self::$table_name.".columns")
                 );
 
         self::$data = $data;
@@ -30,7 +30,7 @@ class ExcelExport
         $format = self::_column_format();
 
         // export template
-        Excel::create(self::rename_column(self::$table_name), function($excel) use ($data, $format){
+        Excel::create(ucwords(str_replace("_", " ", self::$table_name)), function($excel) use ($data, $format){
             $excel->sheet("Sheet1", function($sheet) use ($data, $format){
                 // dump rows from array
                 $sheet->fromArray($data);
@@ -53,12 +53,10 @@ class ExcelExport
     private static function _column_format(){
         $col_count = 1;
         $format = [];
-        $cols = config("tablecolumns.".self::$table_name);
+        $cols = config("tablecolumns.".self::$table_name.".columns");
 
         foreach($cols as $key=>$col){
-            if($col == "") continue;
-
-            $_f = self::_format_string(\Schema::getColumnType(self::$table_name, $col));
+            $_f = self::_format_string($col["type"]);
 
             if($_f != ""){
                 $format[self::_column_letter($col_count)] = $_f;
@@ -94,7 +92,7 @@ class ExcelExport
             break;
 
             case "decimal":
-                return "0.0000";
+                return "0.00";
             break;
 
             case "date":
@@ -106,8 +104,8 @@ class ExcelExport
         }
     }
 
-    public static function rename_column($v){
-        return ucwords(str_replace("_", " ", $v));
+    public static function get_label($v){
+        return ucwords($v["label"]);
     }
 }
 

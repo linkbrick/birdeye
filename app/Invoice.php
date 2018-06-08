@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
-    protected  $fillable = ['customer_code','customer_name','invoice_number','invoice_date','total_before_tax','tax','total'];
+    protected  $fillable = ['entity_id', 'customer_code','customer_name','invoice_number','invoice_date','total_before_tax','tax','total'];
 
     protected $dates = ['invoice_date'];
 
@@ -17,6 +17,4 @@ class Invoice extends Model
     {
         return $this->belongsTo(Entity::class);
     }
-
-
 }

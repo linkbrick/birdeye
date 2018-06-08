@@ -16,8 +16,8 @@ class CreateBillsTable extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('entity_id')->nullable()->unsigned()->index();
-            $table->string('customer_code')->nullable();
-            $table->string('customer_name')->nullable();
+            $table->string('vendor_code')->nullable();
+            $table->string('vendor_name')->nullable();
             $table->string('bill_number')->nullable();
             $table->date('bill_date');
             $table->decimal('total_before_tax',20,4);

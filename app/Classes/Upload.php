@@ -1,7 +1,7 @@
 <?php
 namespace App\Classes;
 
-use App\Upload as uploadModel;
+use App\Media;
 // use Illuminate\Support\Facades\Storage;
 
 class Upload{
@@ -32,20 +32,23 @@ class Upload{
         self::_save_to_disk($file, $directory, $system_file_name);
 
         // clear previous uploaded record
-        self::delete([
-                        "evaluation_id" => $param["evaluation_id"],
-                        "category" => $param["model"]
-                    ]);
+        // self::delete([
+        //                 "evaluation_id" => $param["evaluation_id"],
+        //                 "category" => $param["model"]
+        //             ]);
 
-        $upload = new uploadModel;
-        $upload->account_code = $param["account_code"];
-        $upload->evaluation_id = $param["evaluation_id"];
-        $upload->category = $param["model"];
-        $upload->location = $directory;
+        $upload = new Media;
+        $upload->model_type = "entities";
+        $upload->model_id = session('entity', 0);
+        $upload->collection_name = $param["model"];
+        $upload->name = $system_file_name;
         $upload->file_name = $file_name;
-        $upload->system_name = $system_file_name;
-        $upload->file_type = $file_ext;
-        $upload->file_size = $file_size;
+        $upload->mime_type = $file_ext;
+        $upload->disk = $folder;
+        $upload->size = $file_size;
+        $upload->manipulations = "{}";
+        $upload->custom_properties = "{}";
+        $upload->responsive_images = "{}";
         $upload->save();
 
         return ["id"=>$upload->id, "location"=>$directory."/".$system_file_name];
@@ -55,7 +58,7 @@ class Upload{
         if(is_array($param))
         {
             $toDelete = [];
-            $up = new uploadModel;
+            $up = new Media;
             foreach($param as $key=>$val){
                 $up = $up->where($key, $val);
             }
@@ -71,7 +74,7 @@ class Upload{
         else
         {
             $toDelete = "";
-            $file = uploadModel::find($param);
+            $file = Media::find($param);
             $toDelete = "$file->location/$file->system_name";
             $file->delete();
         }

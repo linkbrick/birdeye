@@ -7,13 +7,12 @@
                 <div class="card ">
                     <div class="card-header card-header-primary card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">store</i>
+                            <i class="material-icons">{{ config("tablecolumns.invoices.icon") }}</i>
                         </div>
-                        <h4 class="card-title">Entity</h4>
+                        <h4 class="card-title">Invoice</h4>
                     </div>
                     <div class="card-body ">
-                        <form id="newInvoice" method="post" action="{{ route('invoices.store') }}"
-                              enctype="multipart/form-data">
+                        <form id="newInvoice" method="post" action="{{ route('invoices.store') }}">
                             {{ csrf_field() }}
                             {{ method_field('POST') }}
                             <div class="row">
@@ -24,7 +23,11 @@
                                                 title="Please select a entity" data-size="7"  data-live-search="true">
                                             <option value="0">Please select a corporate</option>
                                             @foreach($entities as $ekey => $evalue)
-                                                <option value="{{ $evalue->id }}">{{ $evalue->name }}</option>
+                                                <option value="{{ $evalue->id }}"
+                                                    @if($evalue->id == session('entity', 0))
+                                                    selected
+                                                    @endif
+                                                >{{ $evalue->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
