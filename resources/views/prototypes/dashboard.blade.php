@@ -43,7 +43,7 @@
             <div class="col-md-6 col-sm-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-primary" data-header-animation="true">
-                        <div class="ct-chart" id="websiteViewsChart"></div>
+                        <div class="ct-chart" id="dailySalesChart"></div>
                     </div>
                     <div class="card-body">
                         <div class="card-actions">
@@ -60,19 +60,19 @@
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Daily Sales
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency(rand (200000*100, 1000000*100) / 100)  }}</span>
+                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $sales["daily"] )  }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Weekly Sales
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency(rand (200000*5*100, 1000000*5*100) / 100)   }}</span>
+                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $sales["weekly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Monthly Sales
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency(rand (200000*30*100, 1000000*30*100) / 100)   }}</span>
+                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $sales["monthly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Yearly Sales
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency(rand (200000*365*100, 1000000*365*100) / 100)   }}</span>
+                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $sales["yearly"] )   }}</span>
                             </li>
                         </ul>
                     </div>
@@ -86,7 +86,7 @@
             <div class="col-md-6 col-sm-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-success" data-header-animation="true">
-                        <div class="ct-chart" id="dailySalesChart"></div>
+                        <div class="ct-chart" id="dailyPurchaseChart"></div>
                     </div>
                     <div class="card-body">
                         <div class="card-actions">
@@ -103,19 +103,19 @@
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Daily Purchases
-                                <span class="badge badge-success badge-pill">{{ formatCurrency(rand (200000*100, 1000000*100) / 100)  }}</span>
+                                <span class="badge badge-success badge-pill">{{ formatCurrency( $purchases['daily'] )  }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Weekly Purchases
-                                <span class="badge badge-success badge-pill">{{ formatCurrency(rand (200000*5*100, 1000000*5*100) / 100)   }}</span>
+                                <span class="badge badge-success badge-pill">{{ formatCurrency( $purchases['weekly'] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Monthly Purchases
-                                <span class="badge badge-success badge-pill">{{ formatCurrency(rand (200000*30*100, 1000000*30*100) / 100)   }}</span>
+                                <span class="badge badge-success badge-pill">{{ formatCurrency( $purchases['monthly'] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Yearly Purchases
-                                <span class="badge badge-success badge-pill">{{ formatCurrency(rand (200000*30*100, 1000000*30*100) / 100)   }}</span>
+                                <span class="badge badge-success badge-pill">{{ formatCurrency( $purchases['yearly'] )   }}</span>
                             </li>
                         </ul>
                     </div>
@@ -155,9 +155,9 @@
                             <i class="material-icons">weekend</i>
                         </div>
                         <p class="card-category">2018 June</p>
-                        <h3 class="card-title">{{ formatCurrency(rand (200000*30*100, 1000000*30*100) / 100)   }}</h3>
+                        <h3 class="card-title">{{ formatCurrency( $sales["monthly"] )   }}</h3>
                         <p class="card-category">2018 May</p>
-                        <h3 class="card-title">{{ formatCurrency(rand (200000*30*100, 1000000*30*100) / 100)   }}</h3>
+                        <h3 class="card-title">{{ formatCurrency( $sales["last-month"] )   }}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -174,9 +174,9 @@
                             <i class="material-icons">equalizer</i>
                         </div>
                         <p class="card-category">2018 June</p>
-                        <h3 class="card-title">{{ formatCurrency(rand (200000*30*100, 1000000*30*100) / 100)   }}</h3>
+                        <h3 class="card-title">{{ formatCurrency( $sales["monthly"] )   }}</h3>
                         <p class="card-category">2017 June</p>
-                        <h3 class="card-title">{{ formatCurrency(rand (200000*30*100, 1000000*30*100) / 100)   }}</h3>
+                        <h3 class="card-title">{{ formatCurrency( $sales["last-year-month"] )   }}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -192,9 +192,9 @@
                             <i class="material-icons">store</i>
                         </div>
                         <p class="card-category">2018 YTD</p>
-                        <h3 class="card-title">{{ formatCurrency(rand (200000*180*100, 1000000*180*100) / 100)   }}</h3>
+                        <h3 class="card-title">{{ formatCurrency( $sales["yearly"] )   }}</h3>
                         <p class="card-category">2017 YTD</p>
-                        <h3 class="card-title">{{ formatCurrency(rand (200000*180*100, 1000000*180*100) / 100)   }}</h3>
+                        <h3 class="card-title">{{ formatCurrency( $sales["last-year-todate"] )   }}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -212,13 +212,13 @@
             <div class="col-md-6 col-sm-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-primary" data-header-animation="true">
-                        <div class="ct-chart" id="websiteViewsChart1"></div>
+                        <div class="ct-chart" id="dailyCashInChart"></div>
                     </div>
                     <div class="card-body">
                         <div class="card-actions">
-                            <button type="button" class="btn btn-info btn-link fix-broken-card">
+                            <!-- <button type="button" class="btn btn-info btn-link fix-broken-card">
                                 <i class="material-icons">build</i> Fix Header!
-                            </button>
+                            </button> -->
                             <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
                                 <i class="material-icons">refresh</i>
                             </button>
@@ -229,19 +229,19 @@
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Daily Payment Received
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency(rand (200000*100, 1000000*100) / 100)  }}</span>
+                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $cashin["daily"] )  }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Weekly Payment Received
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency(rand (200000*5*100, 1000000*5*100) / 100)   }}</span>
+                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $cashin["weekly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Monthly Payment Received
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency(rand (200000*30*100, 1000000*30*100) / 100)   }}</span>
+                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $cashin["monthly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Yearly Payment Received
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency(rand (200000*365*100, 1000000*365*100) / 100)   }}</span>
+                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $cashin["yearly"] )   }}</span>
                             </li>
                         </ul>
                     </div>
@@ -255,13 +255,13 @@
             <div class="col-md-6 col-sm-12">
                 <div class="card card-chart">
                     <div class="card-header card-header-success" data-header-animation="true">
-                        <div class="ct-chart" id="dailySalesChart1"></div>
+                        <div class="ct-chart" id="dailyCashOutChart"></div>
                     </div>
                     <div class="card-body">
                         <div class="card-actions">
-                            <button type="button" class="btn btn-danger btn-link fix-broken-card">
+                            <!-- <button type="button" class="btn btn-danger btn-link fix-broken-card">
                                 <i class="material-icons">build</i> Fix Header!
-                            </button>
+                            </button> -->
                             <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
                                 <i class="material-icons">refresh</i>
                             </button>
@@ -272,19 +272,19 @@
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Daily Amount Disbursed
-                                <span class="badge badge-success badge-pill">{{ formatCurrency(rand (200000*100, 1000000*100) / 100)  }}</span>
+                                <span class="badge badge-success badge-pill">{{ formatCurrency( $cashout["daily"] )  }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Weekly Amount Disbursed
-                                <span class="badge badge-success badge-pill">{{ formatCurrency(rand (200000*5*100, 1000000*5*100) / 100)   }}</span>
+                                <span class="badge badge-success badge-pill">{{ formatCurrency( $cashout["weekly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Monthly Amount Disbursed
-                                <span class="badge badge-success badge-pill">{{ formatCurrency(rand (200000*30*100, 1000000*30*100) / 100)   }}</span>
+                                <span class="badge badge-success badge-pill">{{ formatCurrency( $cashout["monthly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Yearly Amount Disbursed
-                                <span class="badge badge-success badge-pill">{{ formatCurrency(rand (200000*30*100, 1000000*30*100) / 100)   }}</span>
+                                <span class="badge badge-success badge-pill">{{ formatCurrency( $cashout["yearly"] )   }}</span>
                             </li>
                         </ul>
                     </div>
@@ -309,10 +309,29 @@
 
     <script type="text/javascript">
 
+    var weeklySales = [];
+    var weeklyPurchases = [];
+    var weeklyCashIn = [];
+    var weeklyCashOut = [];
+
+    @foreach($sales["week"] as $day=>$amt)
+    weeklySales.push("{{ $amt/1000 }}");
+    @endforeach
+
+    @foreach($purchases["week"] as $day=>$amt)
+    weeklyPurchases.push("{{ $amt/1000 }}");
+    @endforeach
+
+    @foreach($cashin["week"] as $day=>$amt)
+    weeklyCashIn.push("{{ $amt/1000 }}");
+    @endforeach
+
+    @foreach($cashout["week"] as $day=>$amt)
+    weeklyCashOut.push("{{ $amt/1000 }}");
+    @endforeach
 
     $(document).ready(function() {
-
-        console.log(Setting.initDashboardPageCharts());
+        //console.log(Setting.initDashboardPageCharts());
         //Setting.initMaterialWizard();
 
         // Javascript method's body can be found in assets/js/demos.js
@@ -326,99 +345,45 @@
             "legend": {
                 "useGraphSettings": true
             },
-            "dataProvider": [{
-                "year": 1930,
-                "italy": 1,
-                "germany": 5,
-                "uk": 3
-            }, {
-                "year": 1934,
-                "italy": 1,
-                "germany": 2,
-                "uk": 6
-            }, {
-                "year": 1938,
-                "italy": 2,
-                "germany": 3,
-                "uk": 1
-            }, {
-                "year": 1950,
-                "italy": 3,
-                "germany": 4,
-                "uk": 1
-            }, {
-                "year": 1954,
-                "italy": 5,
-                "germany": 1,
-                "uk": 2
-            }, {
-                "year": 1958,
-                "italy": 3,
-                "germany": 2,
-                "uk": 1
-            }, {
-                "year": 1962,
-                "italy": 1,
-                "germany": 2,
-                "uk": 3
-            }, {
-                "year": 1966,
-                "italy": 2,
-                "germany": 1,
-                "uk": 5
-            }, {
-                "year": 1970,
-                "italy": 3,
-                "germany": 5,
-                "uk": 2
-            }, {
-                "year": 1974,
-                "italy": 4,
-                "germany": 3,
-                "uk": 6
-            }, {
-                "year": 1978,
-                "italy": 1,
-                "germany": 2,
-                "uk": 4
-            }],
+            "dataProvider": [
+                @foreach($sales["last-year-monthly-sales"] as $mth=>$amt)
+                {
+                    "month": "{{ date('M', strtotime('2018-'.$mth.'-1')) }}",
+                    "2017": "{{ formatCurrency($amt/10000) }}",
+                    "2018": "{{ isset($sales['this-year-monthly-sales'][$mth])? formatCurrency($sales['this-year-monthly-sales'][$mth]/10000) : 0 }}"
+                },
+                @endforeach
+            ],
             "valueAxes": [{
                 "integersOnly": true,
-                "maximum": 6,
+                "maximum": 200,
                 "minimum": 1,
-                "reversed": true,
+                "reversed": false,
                 "axisAlpha": 0,
                 "dashLength": 5,
                 "gridCount": 10,
                 "position": "left",
-                "title": "Place taken"
+                "title": "10,000"
             }],
             "startDuration": 0.5,
             "graphs": [{
-                "balloonText": "place taken by Italy in [[category]]: [[value]]",
+                "balloonText": "2018 [[category]]: [[value]]",
                 "bullet": "round",
-                "hidden": true,
-                "title": "Italy",
-                "valueField": "italy",
+                "title": "2018",
+                "valueField": "2018",
                 "fillAlphas": 0
             }, {
-                "balloonText": "place taken by Germany in [[category]]: [[value]]",
+                "balloonText": "2017 [[category]]: [[value]]",
                 "bullet": "round",
-                "title": "Germany",
-                "valueField": "germany",
-                "fillAlphas": 0
-            }, {
-                "balloonText": "place taken by UK in [[category]]: [[value]]",
-                "bullet": "round",
-                "title": "United Kingdom",
-                "valueField": "uk",
+                "title": "2017",
+                "valueField": "2017",
                 "fillAlphas": 0
             }],
             "chartCursor": {
                 "cursorAlpha": 0,
                 "zoomable": false
             },
-            "categoryField": "year",
+            "categoryField": "month",
             "categoryAxis": {
                 "gridPosition": "start",
                 "axisAlpha": 0,

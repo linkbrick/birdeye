@@ -275,17 +275,17 @@ Setting = {
 
 
     initDocumentationCharts: function() {
-        if ($('#dailySalesChart').length != 0 && $('#websiteViewsChart').length != 0) {
+        if ($('#dailyPurchaseChart').length != 0 && $('#dailySalesChart').length != 0) {
             /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
-            dataDailySalesChart = {
+            datadailyPurchaseChart = {
                 labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
                 series: [
                     [12, 17, 7, 17, 23, 18, 38]
                 ]
             };
 
-            optionsDailySalesChart = {
+            optionsdailyPurchaseChart = {
                 lineSmooth: Chartist.Interpolation.cardinal({
                     tension: 0
                 }),
@@ -299,9 +299,9 @@ Setting = {
                 },
             }
 
-            var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+            var dailyPurchaseChart = new Chartist.Line('#dailyPurchaseChart', datadailyPurchaseChart, optionsdailyPurchaseChart);
 
-            var animationHeaderChart = new Chartist.Line('#websiteViewsChart', dataDailySalesChart, optionsDailySalesChart);
+            var animationHeaderChart = new Chartist.Line('#dailySalesChart', datadailyPurchaseChart, optionsdailyPurchaseChart);
         }
     },
 
@@ -522,17 +522,53 @@ Setting = {
     },
 
     initDashboardPageCharts: function() {
-        if ($('#dailySalesChart').length != 0 && $('#websiteViewsChart').length != 0) {
+        if($('#dailySalesChart').length != 0){
+            var datadailySalesChart = {
+                labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+                series: [
+                    weeklySales
+                ]
+            };
+            var optionsdailySalesChart = {
+                axisX: {
+                    showGrid: false
+                },
+                low: 0,
+                high: 100,
+                chartPadding: {
+                    top: 0,
+                    right: 5,
+                    bottom: 0,
+                    left: 0
+                }
+            };
+            var responsiveOptions = [
+                ['screen and (max-width: 640px)', {
+                    seriesBarDistance: 5,
+                    axisX: {
+                        labelInterpolationFnc: function(value) {
+                            return value[0];
+                        }
+                    }
+                }]
+            ];
+            var dailySalesChart = Chartist.Bar('#dailySalesChart', datadailySalesChart, optionsdailySalesChart, responsiveOptions);
+            //
+            // //start animation for the Emails Subscription Chart
+            // md.startAnimationForBarChart(dailySalesChart);
+        }
+
+        if ($('#dailyPurchaseChart').length != 0) {
             /* ----------==========     Daily Sales Chart initialization    ==========---------- */
 
-            dataDailySalesChart = {
-                labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+            datadailyPurchaseChart = {
+                labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
                 series: [
-                    [12, 17, 7, 17, 23, 18, 38]
+                    weeklyPurchases
                 ]
             };
 
-            optionsDailySalesChart = {
+            optionsdailyPurchaseChart = {
                 lineSmooth: Chartist.Interpolation.cardinal({
                     tension: 0
                 }),
@@ -546,9 +582,72 @@ Setting = {
                 },
             }
 
-            var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+            var dailyPurchaseChart = new Chartist.Line('#dailyPurchaseChart', datadailyPurchaseChart, optionsdailyPurchaseChart);
+        }
 
-            // md.startAnimationForLineChart(dailySalesChart);
+        if($('#dailyCashInChart').length != 0){
+            var datadailyCashInChart = {
+                labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+                series: [
+                    weeklyCashIn
+                ]
+            };
+            var optionsdailyCashInChart = {
+                axisX: {
+                    showGrid: false
+                },
+                low: 0,
+                high: 100,
+                chartPadding: {
+                    top: 0,
+                    right: 5,
+                    bottom: 0,
+                    left: 0
+                }
+            };
+            var responsiveOptions = [
+                ['screen and (max-width: 640px)', {
+                    seriesBarDistance: 5,
+                    axisX: {
+                        labelInterpolationFnc: function(value) {
+                            return value[0];
+                        }
+                    }
+                }]
+            ];
+            var dailyCashInChart = Chartist.Bar('#dailyCashInChart', datadailyCashInChart, optionsdailyCashInChart, responsiveOptions);
+            //
+            // //start animation for the Emails Subscription Chart
+            // md.startAnimationForBarChart(dailySalesChart);
+        }
+
+        if ($('#dailyCashOutChart').length != 0) {
+            /* ----------==========     Daily Sales Chart initialization    ==========---------- */
+
+            datadailyCashOutChart = {
+                labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+                series: [
+                    weeklyCashOut
+                ]
+            };
+
+            optionsdailyCashOutChart = {
+                lineSmooth: Chartist.Interpolation.cardinal({
+                    tension: 0
+                }),
+                low: 0,
+                high: 20, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+                chartPadding: {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                },
+            }
+
+            var dailyCashOutChart = new Chartist.Line('#dailyCashOutChart', datadailyCashOutChart, optionsdailyCashOutChart);
+        }
+            // md.startAnimationForLineChart(dailyPurchaseChart);
 
 
 
@@ -583,41 +682,6 @@ Setting = {
 
             /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
-            var dataWebsiteViewsChart = {
-                labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-                series: [
-                    [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-                ]
-            };
-            var optionsWebsiteViewsChart = {
-                axisX: {
-                    showGrid: false
-                },
-                low: 0,
-                high: 1000,
-                chartPadding: {
-                    top: 0,
-                    right: 5,
-                    bottom: 0,
-                    left: 0
-                }
-            };
-            var responsiveOptions = [
-                ['screen and (max-width: 640px)', {
-                    seriesBarDistance: 5,
-                    axisX: {
-                        labelInterpolationFnc: function(value) {
-                            return value[0];
-                        }
-                    }
-                }]
-            ];
-            var websiteViewsChart = Chartist.Bar('#websiteViewsChart', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
-            //
-            // //start animation for the Emails Subscription Chart
-            // md.startAnimationForBarChart(websiteViewsChart);
-        }
     },
 
     showSwal: function(type) {
