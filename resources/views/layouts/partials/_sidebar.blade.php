@@ -43,50 +43,50 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
         </div>
         <ul class="nav">
             <li class="nav-item ">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="material-icons">dashboard</i>
                     <p> Dashboard </p>
                 </a>
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="{{ url('evaluation') }}">
+                <a class="nav-link" href="{{ route('simulator') }}">
                     <i class="material-icons">assessment</i>
                     <p> Evaluation </p>
                 </a>
             </li>
 
-            <li class="nav-item ">
-                <a data-toggle="collapse" href="#users" aria-expanded="false" class="nav-link">
-                    <i class="material-icons">people</i>
-                    <p> People
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="users">
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                                <span class="sidebar-mini"> U </span>
-                                <span class="sidebar-normal"> Users </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                                <span class="sidebar-mini"> R </span>
-                                <span class="sidebar-normal"> Roles </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                                <span class="sidebar-mini"> A </span>
-                                <span class="sidebar-normal"> Abilities </span>
-                            </a>
-                        </li>
+            {{--<li class="nav-item ">--}}
+                {{--<a data-toggle="collapse" href="#users" aria-expanded="false" class="nav-link">--}}
+                    {{--<i class="material-icons">people</i>--}}
+                    {{--<p> People--}}
+                        {{--<b class="caret"></b>--}}
+                    {{--</p>--}}
+                {{--</a>--}}
+                {{--<div class="collapse" id="users">--}}
+                    {{--<ul class="nav">--}}
+                        {{--<li class="nav-item">--}}
+                            {{--<a class="nav-link" href="">--}}
+                                {{--<span class="sidebar-mini"> U </span>--}}
+                                {{--<span class="sidebar-normal"> Users </span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="nav-item">--}}
+                            {{--<a class="nav-link" href="">--}}
+                                {{--<span class="sidebar-mini"> R </span>--}}
+                                {{--<span class="sidebar-normal"> Roles </span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="nav-item">--}}
+                            {{--<a class="nav-link" href="">--}}
+                                {{--<span class="sidebar-mini"> A </span>--}}
+                                {{--<span class="sidebar-normal"> Abilities </span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
 
-                    </ul>
-                </div>
-            </li>
+                    {{--</ul>--}}
+                {{--</div>--}}
+            {{--</li>--}}
 
 
 

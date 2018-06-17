@@ -18,4 +18,9 @@ class DashboardController extends Controller
 
         return view('prototypes.dashboard', compact('sales', 'purchases', 'cashin', 'cashout'));
     }
+
+    public function simulator()
+    {
+        return view('prototypes.simulator');
+    }
 }

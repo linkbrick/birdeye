@@ -8,6 +8,7 @@ class DataSummary
     public function __construct()
     {
         $this->data = config("sampledata");
+
     }
 
     public function get($summary)

@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('prototype/dashboard','DashboardController@sample');
+Route::get('prototype/dashboard','DashboardController@sample')->name('dashboard');
+Route::get('prototype/simulator','DashboardController@simulator')->name('simulator');
 
 Route::group(['middleware' => 'auth'], function () {
     // users
