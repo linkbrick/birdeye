@@ -130,7 +130,7 @@
         {{--End:Sales + Purchases--}}
 
         {{--Begin:Yearly Sales comparison chart--}}
-        <div class="row">
+        <div class="row d-none d-lg-block d-xl-block">
             <div class="col-12">
                 <div class="card card-stats">
                     <div class="card-header card-header-info card-header-icon">
