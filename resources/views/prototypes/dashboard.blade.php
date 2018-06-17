@@ -60,19 +60,19 @@
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Daily Sales
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $sales["daily"] )  }}</span>
+                                <span class="badge badge-primary badge-pill">RM {{ formatCurrency( $sales["daily"] )  }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Weekly Sales
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $sales["weekly"] )   }}</span>
+                                <span class="badge badge-primary badge-pill">RM {{ formatCurrency( $sales["weekly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Monthly Sales
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $sales["monthly"] )   }}</span>
+                                <span class="badge badge-primary badge-pill">RM {{ formatCurrency( $sales["monthly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Yearly Sales
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $sales["yearly"] )   }}</span>
+                                <span class="badge badge-primary badge-pill">RM {{ formatCurrency( $sales["yearly"] )   }}</span>
                             </li>
                         </ul>
                     </div>
@@ -103,19 +103,19 @@
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Daily Purchases
-                                <span class="badge badge-success badge-pill">{{ formatCurrency( $purchases['daily'] )  }}</span>
+                                <span class="badge badge-success badge-pill">RM {{ formatCurrency( $purchases['daily'] )  }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Weekly Purchases
-                                <span class="badge badge-success badge-pill">{{ formatCurrency( $purchases['weekly'] )   }}</span>
+                                <span class="badge badge-success badge-pill">RM {{ formatCurrency( $purchases['weekly'] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Monthly Purchases
-                                <span class="badge badge-success badge-pill">{{ formatCurrency( $purchases['monthly'] )   }}</span>
+                                <span class="badge badge-success badge-pill">RM {{ formatCurrency( $purchases['monthly'] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Yearly Purchases
-                                <span class="badge badge-success badge-pill">{{ formatCurrency( $purchases['yearly'] )   }}</span>
+                                <span class="badge badge-success badge-pill">RM {{ formatCurrency( $purchases['yearly'] )   }}</span>
                             </li>
                         </ul>
                     </div>
@@ -133,9 +133,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-stats">
-                    <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">weekend</i>
+                            <i class="material-icons">show_chart</i>
                         </div>
                        <div class="card-body">
                            <div id="sales_comparison"></div>
@@ -150,37 +150,38 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="card card-stats">
-                    <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-header card-header-rose card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">weekend</i>
+                            <i class="material-icons">done</i>
                         </div>
                         <p class="card-category">2018 June</p>
-                        <h3 class="card-title">{{ formatCurrency( $sales["monthly"] )   }}</h3>
+                        <h3 class="card-title">RM {{ formatCurrency( $sales["monthly"] )   }}</h3>
                         <p class="card-category">2018 May</p>
-                        <h3 class="card-title">{{ formatCurrency( $sales["last-month"] )   }}</h3>
+                        <h3 class="card-title">RM {{ formatCurrency( $sales["last-month"] )   }}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                            <a href="#pablo">Increase / Decrease...</a>
+                            <i class="material-icons text-danger">keyboard_arrow_down</i>
+                            RM {{ formatCurrency($sales["monthly"] - $sales["last-month"]) }}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="card card-stats">
-                    <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-header card-header-warning card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">equalizer</i>
+                            <i class="material-icons">done_all</i>
                         </div>
                         <p class="card-category">2018 June</p>
-                        <h3 class="card-title">{{ formatCurrency( $sales["monthly"] )   }}</h3>
+                        <h3 class="card-title">RM {{ formatCurrency( $sales["monthly"] )   }}</h3>
                         <p class="card-category">2017 June</p>
-                        <h3 class="card-title">{{ formatCurrency( $sales["last-year-month"] )   }}</h3>
+                        <h3 class="card-title">RM {{ formatCurrency( $sales["last-year-month"] )   }}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">local_offer</i> Tracked from Google Analytics
+                            <i class="material-icons text-danger">keyboard_arrow_down</i>
+                            RM {{ formatCurrency($sales["monthly"] - $sales["last-year-month"] ) }}
                         </div>
                     </div>
                 </div>
@@ -189,7 +190,7 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-success card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">store</i>
+                            <i class="material-icons">done_outline</i>
                         </div>
                         <p class="card-category">2018 YTD</p>
                         <h3 class="card-title">{{ formatCurrency( $sales["yearly"] )   }}</h3>
@@ -198,7 +199,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
+                            <i class="material-icons text-success">keyboard_arrow_up</i>
+                            RM {{ formatCurrency( $sales["yearly"] - $sales["last-year-todate"] ) }}
                         </div>
                     </div>
                 </div>
@@ -229,19 +231,19 @@
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Daily Payment Received
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $cashin["daily"] )  }}</span>
+                                <span class="badge badge-primary badge-pill">RM {{ formatCurrency( $cashin["daily"] )  }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Weekly Payment Received
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $cashin["weekly"] )   }}</span>
+                                <span class="badge badge-primary badge-pill">RM {{ formatCurrency( $cashin["weekly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Monthly Payment Received
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $cashin["monthly"] )   }}</span>
+                                <span class="badge badge-primary badge-pill">RM {{ formatCurrency( $cashin["monthly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Yearly Payment Received
-                                <span class="badge badge-primary badge-pill">{{ formatCurrency( $cashin["yearly"] )   }}</span>
+                                <span class="badge badge-primary badge-pill">RM {{ formatCurrency( $cashin["yearly"] )   }}</span>
                             </li>
                         </ul>
                     </div>
@@ -272,19 +274,19 @@
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Daily Amount Disbursed
-                                <span class="badge badge-success badge-pill">{{ formatCurrency( $cashout["daily"] )  }}</span>
+                                <span class="badge badge-success badge-pill">RM {{ formatCurrency( $cashout["daily"] )  }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Weekly Amount Disbursed
-                                <span class="badge badge-success badge-pill">{{ formatCurrency( $cashout["weekly"] )   }}</span>
+                                <span class="badge badge-success badge-pill">RM {{ formatCurrency( $cashout["weekly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Monthly Amount Disbursed
-                                <span class="badge badge-success badge-pill">{{ formatCurrency( $cashout["monthly"] )   }}</span>
+                                <span class="badge badge-success badge-pill">RM {{ formatCurrency( $cashout["monthly"] )   }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Yearly Amount Disbursed
-                                <span class="badge badge-success badge-pill">{{ formatCurrency( $cashout["yearly"] )   }}</span>
+                                <span class="badge badge-success badge-pill">RM {{ formatCurrency( $cashout["yearly"] )   }}</span>
                             </li>
                         </ul>
                     </div>

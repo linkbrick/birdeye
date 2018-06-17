@@ -24,17 +24,17 @@ Vue.component('simulate-monthly', {
                             <tr>
                                 <td>Variance</td>
                                 <td class="text-center" v-for="sale in salesData">
-                                    <button class="btn btn-round" :class="[ (sale - target) < 0 ?'btn-danger':' btn-success btn-sm' ]">
+                                    <span :class="[ (sale - target) < 0 ?'text-danger':' text-success' ]">
                                         {{ formatNumber(sale - target) }}
-                                    </button>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
-                                <td></td>
+                                <td>Ratio</td>
                                 <td class="text-center" v-for="sale in salesData">
-                                    <button class="btn btn-round" :class="[ (sale - target) < 0 ?'btn-danger':' btn-success btn-sm' ]">
+                                    <span :class="[ (sale - target) < 0 ?'text-danger':' text-success' ]">
                                         {{ ((sale - target)/target*100).toFixed(2) }}%
-                                    </button>
+                                    </span>
                                 </td>
                             </tr>
                             </tbody>

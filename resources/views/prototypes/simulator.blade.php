@@ -11,44 +11,32 @@
                     <h5 class="description">Adjust the bar to visualize the sales summary</h5>
                 </div>
             </div>
-            <!-- div class="row justify-content-md-center">
-                <div class="col col-lg-5">
-                    <select class="selectpicker" v-model="company" 
-                            data-style="select-with-transition"
-                            title="Please select a filter" data-size="7" >
-                        <option value="all" style="color:black" >All</option>
-                        <option value="liwida" style="color:black" >Liwida</option>
-                        <option value="lwd" style="color:black" >LWD</option>
-                    </select>
-                </div>
-                <div class="col col-lg-1">
-                    <a href="#" class="btn btn-primary btn-link" @click="company = ''">Clear</a>
-                </div>
-            </div -->
             <div class="row justify-content-md-center">
                 <div class="col col-lg-6">
                     <slider :slider-value.sync="salesTarget" :slider-min="slider.min" :slider-max="slider.max" :slider-step="slider.step" @updatevalue="updatevalue" @end="recalculate" ref="mySlider"></slider>
                 </div>
             </div>
+
             <div class="row justify-content-md-center">
                 <div class="col col-lg-2">
-                    <h3>YTD Sales : </h3>
+                    <h3>Yearly Target: </h3>
+                </div>
+                <div class="col col-lg-2">
+                    <h3><input class="form-control" v-model="formatSalesTarget" @change="refreshSlider"> </h3>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-2">
+                    <h3>YTD Sales: </h3>
                 </div>
                 <div class="col col-lg-2">
                     <h3>@{{ formatNumber(totalSales) }}</h3>
                 </div>
             </div>
+
             <div class="row justify-content-md-center">
                 <div class="col col-lg-2">
-                    <h3>Yearly Target : </h3>
-                </div>
-                <div class="col col-lg-2">
-                    <h3><input v-model="formatSalesTarget" @change="refreshSlider"> </h3>
-                </div>
-            </div>
-            <div class="row justify-content-md-center">
-                <div class="col col-lg-2">
-                    <h3>Variance : </h3>
+                    <h3>Variance: </h3>
                 </div>
                 <div class="col col-lg-2">
                     <h3>
@@ -60,7 +48,7 @@
             </div>
             <div class="row justify-content-md-center">
                 <div class="col col-lg-2">
-                    <h3>&nbsp;</h3>
+                    <h3>Ratio:</h3>
                 </div>
                 <div class="col col-lg-2">
                     <h3>

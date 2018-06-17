@@ -1,6 +1,6 @@
 Vue.component('simulate-quarter', {
     template: `<div class="card">
-                    <div class="card-header card-header-text" :class="'card-header-' + headerColor">
+                    <div class="card-header card-header-text" :class="'card-header-info'">
                         <div class="card-text">
                             <h2 class="card-title">{{ title }}</h2>
                             <p class="card-category">{{ subTitle }}</p>
@@ -10,19 +10,19 @@ Vue.component('simulate-quarter', {
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Sales
-                                <span class="badge badge-primary badge-pill">{{ formatNumber(sales)  }}</span>
+                                <span class="text-primary">{{ formatNumber(sales)  }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Target
-                                <span class="badge badge-primary badge-pill">{{ formatNumber(target) }}</span>
+                                <span class="text-primary">{{ formatNumber(target) }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Variance
-                                <span class="badge badge-pill" :class="[ variance < 0 ?'badge-danger badge-lg':'badge-success' ]">{{ formatNumber(variance) }}</span>
+                                <span :class="[ variance < 0 ?'text-danger ':'text-success' ]">{{ formatNumber(variance) }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                &nbsp;
-                                <span class="badge badge-pill" :class="[ variance < 0 ?'badge-danger badge-lg':'badge-success' ]">
+                                Ratio&nbsp;
+                                <span :class="[ variance < 0 ?'text-danger ':'text-success' ]">
                                     {{ ((sales - target)/target*100).toFixed(2) }}%
                                 </span>
                             </li>
