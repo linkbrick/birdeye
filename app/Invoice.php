@@ -18,3 +18,5 @@ class Invoice extends Model
         return $this->belongsTo(Entity::class);
     }
 }
+
+/* TEST */
